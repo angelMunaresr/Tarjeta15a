@@ -43,7 +43,7 @@ export default function DetailsSection() {
     return () => clearInterval(timer);
   }, []);
 
-  const mapQuery = "Salon+Madero+Walk,+Pierina+Dealesi+1850,+C1107+CABA";
+  const mapQuery = "Mar+del+Plata,+Buenos+Aires,+Argentina";
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   const wazeUrl = `https://waze.com/ul?q=${mapQuery}&navigate=yes`;
 
@@ -176,10 +176,10 @@ export default function DetailsSection() {
                 Ubicación
               </h4>
               <p className="font-montserrat text-sm md:text-base font-medium text-slate-100 mt-1">
-                Madero Walk Salón
+                Salón en Mar del Plata
               </p>
               <p className="font-montserrat text-xs text-slate-400 mt-0.5 leading-relaxed font-light">
-                Pierina Dealessi 1850, Dique 2, Puerto Madero, CABA
+                Costa Atlántica, Buenos Aires, Argentina
               </p>
             </div>
           </div>

@@ -1,20 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy-dark: #020614;     /* Azul noche profundo casi negro */
-  --color-navy-medium: #060E1E;   /* Azul noche oscuro */
-  --color-navy-light: #0C1A30;    /* Azul noche medio */
-  --color-navy-bright: #1E2E4A;   /* Azul noche claro para relieve */
+  /* Azules Marinos Profundos (Noche en Mar del Plata) */
+  --color-navy-abyss: #00040a;     /* Abismo marino - negro profundo */
+  --color-navy-dark: #020614;      /* Azul noche profundo casi negro */
+  --color-navy-medium: #060E1E;    /* Azul noche oscuro */
+  --color-navy-light: #0C1A30;     /* Azul noche medio */
+  --color-navy-bright: #1E2E4A;    /* Azul noche claro para relieve */
+  --color-ocean-deep: #001220;     /* Azul océano profundo */
+  --color-ocean-mid: #002033;      /* Azul océano medio */
   
-  --color-rose-gold: #D4A373;     /* Oro rosa sofisticado */
-  --color-rose-gold-light: #F3E5D8; /* Oro rosa brillante / champán */
-  --color-rose-gold-dark: #A6734E;  /* Oro rosa profundo */
+  /* Oro Rosa y Dorados (Luna y Arena de Mar del Plata) */
+  --color-rose-gold: #D4A373;      /* Oro rosa sofisticado */
+  --color-rose-gold-light: #F3E5D8;/* Oro rosa brillante / champán */
+  --color-rose-gold-dark: #A6734E; /* Oro rosa profundo */
+  --color-sand-gold: #C9A961;      /* Arena dorada de playa */
+  --color-moonlight: #E8DFC2;      /* Luz de luna plateada-dorada */
   
-  --color-gold-accent: #E6C587;   /* Oro champán elegante */
-  --color-gold-light: #FDF6E2;    /* Oro crema */
+  --color-gold-accent: #E6C587;    /* Oro champán elegante */
+  --color-gold-light: #FDF6E2;     /* Oro crema */
   
-  --color-sea-glow: #00F5FF;      /* Turquesa bioluminiscente */
-  --color-sea-soft: #0ea5e9;      /* Azul mar cielo */
+  /* Colores del Mar (Turquesas y Azules Cielo) */
+  --color-sea-glow: #00F5FF;       /* Turquesa bioluminiscente (plankton) */
+  --color-sea-soft: #0ea5e9;       /* Azul mar cielo */
+  --color-sea-foam: #98D8C8;       /* Espuma de mar */
+  --color-sea-wave: #006699;       /* Ola mar */
   
   --font-cinzel: var(--font-cinzel), serif;
   --font-montserrat: var(--font-montserrat), sans-serif;
@@ -97,4 +107,61 @@ input, textarea, select, .selectable-text {
 
 .animate-float-slow {
   animation: float-slow 6s infinite ease-in-out;
+}
+
+/* Animaciones Marinas */
+@keyframes wave {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes bubble-rise {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+}
+
+@keyframes moon-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes sea-sway {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+@keyframes bioluminescence {
+  0%, 100% { opacity: 0.3; box-shadow: 0 0 5px currentColor; }
+  50% { opacity: 1; box-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+}
+
+.animate-wave {
+  animation: wave 3s ease-in-out infinite;
+}
+
+.animate-moon-glow {
+  animation: moon-glow 5s ease-in-out infinite;
+}
+
+.animate-sea-sway {
+  animation: sea-sway 4s ease-in-out infinite;
+}
+
+.animate-bioluminescence {
+  animation: bioluminescence 2s ease-in-out infinite;
+}
+
+/* Gradientes Marinos */
+.gradient-ocean-night {
+  background: linear-gradient(180deg, #00040a 0%, #020614 30%, #060E1E 60%, #001220 100%);
+}
+
+.gradient-moonlight {
+  background: radial-gradient(ellipse at top, rgba(243, 229, 216, 0.15) 0%, transparent 50%);
+}
+
+.gradient-sea-glow {
+  background: radial-gradient(circle, rgba(0, 245, 255, 0.1) 0%, transparent 70%);
 }

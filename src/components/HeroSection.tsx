@@ -65,7 +65,7 @@ export default function HeroSection() {
             Mis 15 Años
           </h2>
           <p className="font-montserrat text-xs md:text-sm text-slate-300 font-light max-w-xs md:max-w-sm mx-auto leading-relaxed italic px-4">
-            "El susurro del viento sobre las olas marca el compás de un nuevo camino. Hoy el mar se viste de gala para celebrar la magia de la juventud."
+            "Bajo la luna de Mar del Plata, donde el mar abraza la noche, celebramos el comienzo de un nuevo sueño. Las olas cantan mi canción, y el viento lleva mi invitación."
           </p>
         </motion.div>
       </div>
