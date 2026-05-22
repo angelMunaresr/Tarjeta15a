@@ -172,7 +172,7 @@ export default function SaveTheDate() {
     const icsContent = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Marina 15 Anos//Save The Date//ES",
+      "PRODID:-//Marina 15 Anos//Reserva la fecha//ES",
       "BEGIN:VEVENT",
       "UID:marina-15-anos-save-the-date",
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z"}`,
@@ -189,7 +189,7 @@ export default function SaveTheDate() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Save_the_Date_Marina.ics");
+    link.setAttribute("download", "Reserva_la_Fecha_Marina.ics");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
