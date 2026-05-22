@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-dark: #020614;     /* Azul noche profundo casi negro */
+  --color-navy-medium: #060E1E;   /* Azul noche oscuro */
+  --color-navy-light: #0C1A30;    /* Azul noche medio */
+  --color-navy-bright: #1E2E4A;   /* Azul noche claro para relieve */
+  
+  --color-rose-gold: #D4A373;     /* Oro rosa sofisticado */
+  --color-rose-gold-light: #F3E5D8; /* Oro rosa brillante / champán */
+  --color-rose-gold-dark: #A6734E;  /* Oro rosa profundo */
+  
+  --color-gold-accent: #E6C587;   /* Oro champán elegante */
+  --color-gold-light: #FDF6E2;    /* Oro crema */
+  
+  --color-sea-glow: #00F5FF;      /* Turquesa bioluminiscente */
+  --color-sea-soft: #0ea5e9;      /* Azul mar cielo */
+  
+  --font-cinzel: var(--font-cinzel), serif;
+  --font-montserrat: var(--font-montserrat), sans-serif;
+  --font-alex: var(--font-alex), cursive;
+  --font-pinyon: var(--font-pinyon), cursive;
+}
+
+:root {
+  --background: #020614;
+  --foreground: #F1F5F9;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-montserrat), sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  user-select: none; /* Evitar selección accidental al hacer scroll */
+}
+
+/* Habilitar selección de texto solo en inputs de formulario y textos específicos */
+input, textarea, select, .selectable-text {
+  user-select: text !important;
+}
+
+/* Scrollbar estilizada */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #020614;
+}
+::-webkit-scrollbar-thumb {
+  background: #060E1E;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0C1A30;
+}
+
+/* Clases de utilidad para efectos premium */
+.glass-panel {
+  background: linear-gradient(135deg, rgba(12, 26, 48, 0.4) 0%, rgba(6, 14, 30, 0.2) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 163, 115, 0.15); /* Borde fino de oro rosa */
+  box-shadow: 0 8px 32px 0 rgba(2, 6, 20, 0.5);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(212, 163, 115, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(0, 245, 255, 0.08), 0 8px 32px 0 rgba(2, 6, 20, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Animaciones Personalizadas */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 0.85; transform: scale(1.2); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(0.5deg); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Aplicaciones de animación */
+.animate-twinkle {
+  animation: twinkle 4s infinite ease-in-out;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s infinite ease-in-out;
+}
