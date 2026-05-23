@@ -45,9 +45,9 @@ export default function SaveTheDate() {
 
     for (let i = 0; i < particleCount; i++) {
       const angle = (i / particleCount) * Math.PI * 2 + (Math.random() * 0.15 - 0.075);
-      const distance = Math.random() * 130 + 70;
-      const size = Math.random() * 6 + 3;
-      const duration = Math.random() * 0.5 + 0.4;
+      const distance = Math.random() * 200 + 100;
+      const size = Math.random() * 10 + 5;
+      const duration = Math.random() * 1.2 + 1;
 
       tempParticles.push({
         id: i,
@@ -65,7 +65,7 @@ export default function SaveTheDate() {
 
     setTimeout(() => {
       setStatus("revealed");
-    }, 800);
+    }, 1500);
   };
 
   const handleDownloadICS = () => {
