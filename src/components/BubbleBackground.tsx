@@ -12,7 +12,7 @@ interface Star {
   twinkleSpeed: number;
 }
 
-export default function BubbleBackground() {
+export default function BubbleBackground({ showMoon = true }: { showMoon?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const timeRef = useRef(0);
 
@@ -127,8 +127,8 @@ export default function BubbleBackground() {
       ctx.fillStyle = baseGrad;
       ctx.fillRect(0, 0, width, height);
 
-      drawMoon();
       drawWaterReflection();
+      if (showMoon) drawMoon();
 
       stars.forEach((star) => {
         star.phase += star.alphaSpeed;
