@@ -108,7 +108,7 @@ export default function SaveTheDate() {
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+15+A%C3%B1os+-+Marina&dates=20261114T210000/20261115T050000&details=%C2%A1Guarda+la+fecha+para+celebrar+mis+15+a%C3%B1os+en+Mar+del+Plata%21+Pr%C3%B3ximamente+recibir%C3%A1s+la+invitaci%C3%B3n+formal+con+todos+los+detalles.&location=Mar+del+Plata%2C+Buenos+Aires%2C+Argentina`;
 
   return (
-    <div className="w-full h-[100dvh] overflow-hidden relative select-none flex flex-col justify-between items-center py-12 px-6">
+    <div className="w-full h-full overflow-hidden relative select-none flex flex-col justify-between items-center py-12 px-6">
 
       <div className="relative flex items-center justify-center flex-grow w-full max-w-sm z-20">
         

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function SaveTheDatePage() {
   return (
-    <main className="w-full min-h-screen overflow-hidden flex flex-col justify-center items-center">
+    <main className="fixed inset-0 overflow-hidden flex flex-col">
       <BubbleBackground showMoon={false} />
       <SaveTheDate />
     </main>
