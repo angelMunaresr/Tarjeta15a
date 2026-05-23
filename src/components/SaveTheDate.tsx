@@ -69,7 +69,7 @@ export default function SaveTheDate() {
   };
 
   const handleDownloadICS = () => {
-    const title = "Mis 15 Años - Marina";
+    const title = "Mis 15 Años - Malena";
     const description = "¡Guarda la fecha para celebrar mis 15 años en Mar del Plata! Próximamente recibirás la invitación formal con todos los detalles.";
     const location = "Mar del Plata, Buenos Aires, Argentina";
     const startDate = "20261114T210000";
@@ -78,9 +78,9 @@ export default function SaveTheDate() {
     const icsContent = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Marina 15 Anos//Reserva la fecha//ES",
+      "PRODID:-//Malena 15 Anos//Reserva la fecha//ES",
       "BEGIN:VEVENT",
-      "UID:marina-15-anos-save-the-date",
+      "UID:malena-15-anos-save-the-date",
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z"}`,
       `DTSTART:${startDate}`,
       `DTEND:${endDate}`,
@@ -95,7 +95,7 @@ export default function SaveTheDate() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Reserva_la_Fecha_Marina.ics");
+    link.setAttribute("download", "Reserva_la_Fecha_Malena.ics");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -105,7 +105,7 @@ export default function SaveTheDate() {
     setTimeout(() => setSaved(false), 3000);
   };
 
-  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+15+A%C3%B1os+-+Marina&dates=20261114T210000/20261115T050000&details=%C2%A1Guarda+la+fecha+para+celebrar+mis+15+a%C3%B1os+en+Mar+del+Plata%21+Pr%C3%B3ximamente+recibir%C3%A1s+la+invitaci%C3%B3n+formal+con+todos+los+detalles.&location=Mar+del+Plata%2C+Buenos+Aires%2C+Argentina`;
+  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+15+A%C3%B1os+-+Malena&dates=20261114T210000/20261115T050000&details=%C2%A1Guarda+la+fecha+para+celebrar+mis+15+a%C3%B1os+en+Mar+del+Plata%21+Pr%C3%B3ximamente+recibir%C3%A1s+la+invitaci%C3%B3n+formal+con+todos+los+detalles.&location=Mar+del+Plata%2C+Buenos+Aires%2C+Argentina`;
 
   return (
     <div className="w-full h-full overflow-hidden relative select-none flex flex-col justify-between items-center py-12 px-6">
@@ -272,7 +272,7 @@ export default function SaveTheDate() {
                   </span>
 
                   <h2 className="font-pinyon text-5xl md:text-6xl font-bold tracking-wider text-rose-gold-light drop-shadow-[0_2px_15px_rgba(212,163,115,0.25)]">
-                    Marina
+                    Malena
                   </h2>
                   
                   <div className="w-14 h-[1px] bg-gradient-to-r from-transparent via-rose-gold to-transparent my-4" />
@@ -366,7 +366,7 @@ export default function SaveTheDate() {
       </div>
 
       <div className="z-10 text-center text-[8px] text-slate-500 tracking-wider font-light uppercase">
-        © 2026 Marina. Todos los derechos reservados.
+        © 2026 Malena. Todos los derechos reservados.
       </div>
     </div>
   );
