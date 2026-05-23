@@ -1,5 +1,4 @@
 import SaveTheDate from "@/components/SaveTheDate";
-import BubbleRise from "@/components/BubbleRise";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 export default function SaveTheDatePage() {
   return (
     <main className="fixed inset-0 overflow-hidden flex flex-col">
-      <BubbleRise />
       <SaveTheDate />
     </main>
   );

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Download, Sparkles, MapPin, Check } from "lucide-react";
+import BubbleRise from "./BubbleRise";
 
 interface Particle {
   id: number;
@@ -109,6 +110,7 @@ export default function SaveTheDate() {
 
   return (
     <div className="w-full h-full overflow-hidden relative select-none flex flex-col justify-between items-center py-12 px-6">
+      {status !== "mystery" && <BubbleRise />}
 
       <div className="relative flex items-center justify-center flex-grow w-full max-w-sm z-20">
         
