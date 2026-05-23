@@ -1,4 +1,5 @@
 import SaveTheDate from "@/components/SaveTheDate";
+import BubbleBackground from "@/components/BubbleBackground";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +9,8 @@ export const metadata: Metadata = {
 
 export default function SaveTheDatePage() {
   return (
-    <main className="w-full min-h-screen overflow-hidden bg-navy-dark flex flex-col justify-center items-center">
+    <main className="w-full min-h-screen overflow-hidden flex flex-col justify-center items-center">
+      <BubbleBackground />
       <SaveTheDate />
     </main>
   );

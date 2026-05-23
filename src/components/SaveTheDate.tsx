@@ -1,18 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Download, Sparkles, MapPin, Check } from "lucide-react";
-
-interface Star {
-  x: number;
-  y: number;
-  size: number;
-  alpha: number;
-  alphaSpeed: number;
-  phase: number;
-  twinkleSpeed: number;
-}
 
 interface Particle {
   id: number;
@@ -30,90 +20,6 @@ export default function SaveTheDate() {
   const [particles, setParticles] = useState<Particle[]>([]);
   const [showOptions, setShowOptions] = useState(false);
   const [saved, setSaved] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const timeRef = useRef(0);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let stars: Star[] = [];
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
-
-    const isMobile = width < 768;
-    const starCount = isMobile ? 100 : 180;
-
-    const createStar = (): Star => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 2.2 + 0.5,
-      alpha: Math.random() * 0.7 + 0.2,
-      alphaSpeed: Math.random() * 0.02 + 0.005,
-      phase: Math.random() * Math.PI * 2,
-      twinkleSpeed: Math.random() * 0.025 + 0.008,
-    });
-
-    const init = () => {
-      stars = Array.from({ length: starCount }, createStar);
-    };
-
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      init();
-    };
-
-    window.addEventListener("resize", handleResize);
-    init();
-
-    const animate = () => {
-      timeRef.current += 16;
-      ctx.clearRect(0, 0, width, height);
-
-      const baseGrad = ctx.createLinearGradient(0, 0, 0, height);
-      baseGrad.addColorStop(0, "#00040a");
-      baseGrad.addColorStop(0.4, "#020614");
-      baseGrad.addColorStop(1, "#001220");
-      ctx.fillStyle = baseGrad;
-      ctx.fillRect(0, 0, width, height);
-
-      stars.forEach((star) => {
-        star.phase += star.alphaSpeed;
-        const twinkle = Math.sin(star.phase * star.twinkleSpeed * 100) * 0.45;
-        const currentAlpha = Math.max(0.1, Math.min(1, star.alpha + twinkle));
-
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(248, 246, 240, ${currentAlpha})`;
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        if (star.size > 1.4 && currentAlpha > 0.6) {
-          ctx.strokeStyle = `rgba(248, 246, 240, ${currentAlpha * 0.35})`;
-          ctx.lineWidth = 0.3;
-          ctx.beginPath();
-          ctx.moveTo(star.x - star.size * 2.5, star.y);
-          ctx.lineTo(star.x + star.size * 2.5, star.y);
-          ctx.moveTo(star.x, star.y - star.size * 2.5);
-          ctx.lineTo(star.x, star.y + star.size * 2.5);
-          ctx.stroke();
-        }
-      });
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const handleMoonClick = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
     if (status !== "mystery") return;
@@ -203,8 +109,6 @@ export default function SaveTheDate() {
 
   return (
     <div className="w-full h-[100dvh] overflow-hidden relative select-none flex flex-col justify-between items-center py-12 px-6">
-      
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none -z-10" />
 
       <div className="relative flex items-center justify-center flex-grow w-full max-w-sm z-20">
         
