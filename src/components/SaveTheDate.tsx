@@ -296,6 +296,9 @@ export default function SaveTheDate() {
                       <p className="font-cinzel text-rose-gold-light text-sm tracking-[0.15em] font-bold relative z-10">
                         SÁBADO 14 DE NOVIEMBRE
                       </p>
+                      <p className="text-[10px] uppercase tracking-widest text-rose-gold-light font-semibold mt-1 relative z-10">
+                        Salón de eventos Millennium
+                      </p>
                       <p className="text-[9px] uppercase tracking-widest text-slate-400 font-normal mt-0.5 relative z-10 flex items-center justify-center gap-1">
                         <MapPin className="w-2.5 h-2.5 text-rose-gold/60" />
                         Mar del Plata, Argentina
