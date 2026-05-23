@@ -302,7 +302,7 @@ export default function SaveTheDate() {
                   </div>
 
                   <p className="font-montserrat text-[10px] text-slate-400/80 leading-normal max-w-[240px] mx-auto mb-7">
-                    Próximamente recibirás la invitación formal con todos los detalles del evento en la costa.
+                    Próximamente recibirás la invitación formal con todos los detalles del evento.
                   </p>
 
                   <div className="w-full max-w-[220px]">
@@ -366,7 +366,7 @@ export default function SaveTheDate() {
       </div>
 
       <div className="z-10 text-center text-[8px] text-slate-500 tracking-wider font-light uppercase">
-        © 2026 Malena. Todos los derechos reservados.
+      
       </div>
     </div>
   );
