@@ -38,9 +38,19 @@ export default function InfoSection() {
         <span className="font-cinzel text-xs text-rose-gold font-bold">5</span>
       </div>
 
-      {/* Luces radiales del fondo */}
-      <div className="absolute top-1/4 right-0 w-[280px] h-[280px] bg-rose-gold/5 rounded-full blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-[280px] h-[280px] bg-sea-glow/5 rounded-full blur-[110px] pointer-events-none" />
+      {/* Luces radiales del fondo más dramáticas */}
+      <div className="absolute top-1/4 right-0 w-[350px] h-[350px] bg-rose-gold/[0.04] rounded-full blur-[130px] pointer-events-none animate-golden-shimmer" />
+      <div className="absolute bottom-1/4 left-0 w-[350px] h-[350px] bg-sea-glow/[0.03] rounded-full blur-[130px] pointer-events-none" />
+
+      {/* Líneas decorativas */}
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[50%] max-w-md">
+        <div className="ornament-line h-px">
+          <div className="ornament-diamond" />
+        </div>
+      </div>
+
+      {/* Marco decorativo */}
+      <div className="absolute inset-8 border border-rose-gold/8 pointer-events-none rounded-sm" />
 
       {/* Onda superior para transicionar desde RsvpSection (navy-dark) */}
       <WaveDivider className="-mt-20 z-10" fillColor="text-navy-medium" />
@@ -72,7 +82,7 @@ export default function InfoSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="glass-panel p-6 md:p-8 flex flex-col items-center text-center shadow-2xl hover:border-rose-gold/25 transition-all duration-300 relative group rounded-2xl"
+            className="glass-panel p-6 md:p-8 flex flex-col items-center text-center shadow-2xl hover:border-rose-gold/25 transition-all duration-300 relative group rounded-2xl texture-velvet glow-dramatic"
           >
             {/* Adornos en esquinas */}
             <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t border-l border-rose-gold/20" />
@@ -103,7 +113,7 @@ export default function InfoSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="glass-panel p-6 md:p-8 flex flex-col items-center text-center shadow-2xl hover:border-rose-gold/25 transition-all duration-300 relative group rounded-2xl"
+            className="glass-panel p-6 md:p-8 flex flex-col items-center text-center shadow-2xl hover:border-rose-gold/25 transition-all duration-300 relative group rounded-2xl texture-velvet glow-dramatic"
           >
             {/* Adornos en esquinas */}
             <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t border-l border-rose-gold/20" />

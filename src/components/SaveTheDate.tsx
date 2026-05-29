@@ -128,6 +128,20 @@ export default function SaveTheDate() {
                 whileTap={{ scale: 0.95 }}
                 className="relative w-40 h-40 md:w-48 md:h-48 rounded-full cursor-pointer select-none touch-none"
               >
+                {/* Resplandor lunardramático */}
+                <div 
+                  className="absolute inset-0 rounded-full animate-golden-shimmer"
+                  style={{
+                    background: "radial-gradient(circle at 50% 50%, rgba(245,235,210,0.3) 0%, rgba(245,235,210,0.1) 40%, transparent 70%)",
+                    boxShadow: `
+                      0 0 100px rgba(245, 235, 210, 0.4),
+                      0 0 200px rgba(245, 235, 210, 0.2),
+                      0 0 300px rgba(212,163,115,0.1),
+                      inset -12px -12px 40px rgba(180, 160, 130, 0.4),
+                      inset 8px 8px 20px rgba(255, 252, 240, 0.3)
+                    `
+                  }}
+                />
                 <div 
                   className="absolute inset-0 rounded-full"
                   style={{
@@ -257,14 +271,18 @@ export default function SaveTheDate() {
               className="w-full relative"
             >
               <div 
-                className="w-full rounded-2xl p-7 relative overflow-hidden border border-rose-gold/15 glass-panel"
+                className="absolute inset-0 bg-rose-gold/[0.05] rounded-2xl blur-[60px] scale-110"
+              />
+              
+              <div 
+                className="w-full rounded-2xl p-7 relative overflow-hidden border border-rose-gold/20 glass-panel glow-dramatic texture-velvet"
               >
                 <div className="absolute inset-2 border border-rose-gold/15 rounded-xl pointer-events-none" />
                 
-                <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-rose-gold/40 pointer-events-none" />
-                <div className="absolute top-3 right-3 w-3 h-3 border-t border-r border-rose-gold/40 pointer-events-none" />
-                <div className="absolute bottom-3 left-3 w-3 h-3 border-b border-l border-rose-gold/40 pointer-events-none" />
-                <div className="absolute bottom-3 right-3 w-3 h-3 border-b border-r border-rose-gold/40 pointer-events-none" />
+                <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rose-gold/50" />
+                <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-rose-gold/50" />
+                <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-rose-gold/50" />
+                <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rose-gold/50" />
 
                 <div className="text-center flex flex-col items-center select-text relative z-10">
                   <span className="text-[10px] font-montserrat uppercase tracking-[0.25em] text-rose-gold-light font-medium flex items-center gap-1.5 mb-4">

@@ -98,9 +98,19 @@ export default function RsvpSection() {
         <span className="font-cinzel text-xs text-rose-gold font-bold">4</span>
       </div>
 
-      {/* Luz radial del fondo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-sea-glow/5 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute top-1/3 left-1/4 w-[250px] h-[250px] bg-rose-gold/5 rounded-full blur-[110px] pointer-events-none" />
+      {/* Luz radial del fondo más dramática */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-sea-glow/[0.04] rounded-full blur-[150px] pointer-events-none animate-golden-shimmer" />
+      <div className="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-rose-gold/[0.05] rounded-full blur-[130px] pointer-events-none" />
+
+      {/* Líneas decorativas */}
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[40%] max-w-xs">
+        <div className="ornament-line h-px">
+          <div className="ornament-diamond" />
+        </div>
+      </div>
+
+      {/* Marco decorativo */}
+      <div className="absolute inset-8 border border-rose-gold/8 pointer-events-none rounded-sm" />
 
       {/* Título de la Sección */}
       <motionFramer.div
@@ -108,7 +118,7 @@ export default function RsvpSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="text-center mb-12 z-10 select-none"
+        className="text-center mb-10 z-10 select-none"
       >
         <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-rose-gold font-semibold mb-2 block">
           ¿Nos acompañás?
@@ -128,13 +138,19 @@ export default function RsvpSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="w-full max-w-md glass-panel rounded-2xl p-6 md:p-8 shadow-2xl relative z-10 hover:border-rose-gold/25 transition-colors duration-300"
+        className="w-full max-w-md glass-panel rounded-2xl p-6 md:p-8 shadow-2xl relative z-10 hover:border-rose-gold/25 transition-colors duration-300 glow-dramatic texture-velvet"
       >
-        {/* Adornos en esquinas */}
-        <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-rose-gold/20" />
-        <div className="absolute top-3 right-3 w-3 h-3 border-t border-r border-rose-gold/20" />
-        <div className="absolute bottom-3 left-3 w-3 h-3 border-b border-l border-rose-gold/20" />
-        <div className="absolute bottom-3 right-3 w-3 h-3 border-b border-r border-rose-gold/20" />
+        {/* Adornos en esquinas más elaborados */}
+        <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-rose-gold/40" />
+        <div className="absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-rose-gold/40" />
+        <div className="absolute bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 border-rose-gold/40" />
+        <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 border-rose-gold/40" />
+        
+        {/* Puntos decorativos en esquinas */}
+        <div className="absolute top-[18px] left-[18px] w-1 h-1 bg-rose-gold/40 rounded-full" />
+        <div className="absolute top-[18px] right-[18px] w-1 h-1 bg-rose-gold/40 rounded-full" />
+        <div className="absolute bottom-[18px] left-[18px] w-1 h-1 bg-rose-gold/40 rounded-full" />
+        <div className="absolute bottom-[18px] right-[18px] w-1 h-1 bg-rose-gold/40 rounded-full" />
 
         {!submitted ? (
           <form onSubmit={handleSubmit} className="space-y-6">

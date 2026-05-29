@@ -18,27 +18,46 @@ export default function HeroSection() {
         <span className="font-cinzel text-xs text-rose-gold font-bold">1</span>
       </div>
 
-      {/* Luz central en el fondo (destello azul y oro rosa) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-sea-glow/5 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-rose-gold/5 rounded-full blur-[110px] pointer-events-none" />
+      {/* Luces centrales dramáticas */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-sea-glow/[0.03] rounded-full blur-[150px] pointer-events-none animate-golden-shimmer" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-rose-gold/5 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute top-[30%] left-[60%] w-[200px] h-[200px] bg-moonlight/[0.02] rounded-full blur-[80px] pointer-events-none" />
 
-      {/* Margen Decorativo de Alta Gama */}
-      <div className="absolute inset-5 border border-rose-gold/15 pointer-events-none rounded-sm">
+      {/* Líneas decorativas doradas horizontales */}
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[60%] max-w-md">
+        <div className="ornament-line h-px">
+          <div className="ornament-diamond" />
+        </div>
+      </div>
+      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 w-[40%] max-w-xs">
+        <div className="ornament-line h-px">
+          <div className="ornament-diamond" />
+        </div>
+      </div>
+
+      {/* Marco decorativo de alta gama */}
+      <div className="absolute inset-5 border border-rose-gold/10 pointer-events-none rounded-sm">
         <div className="absolute inset-1.5 border border-rose-gold/5 pointer-events-none rounded-sm" />
       </div>
 
       {/* Esquinas ornamentales estilo invitación clásica */}
-      <div className="absolute top-8 left-8 w-6 h-6 border-t border-l border-rose-gold/40 pointer-events-none" />
-      <div className="absolute top-8 right-8 w-6 h-6 border-t border-r border-rose-gold/40 pointer-events-none" />
-      <div className="absolute bottom-8 left-8 w-6 h-6 border-b border-l border-rose-gold/40 pointer-events-none" />
-      <div className="absolute bottom-8 right-8 w-6 h-6 border-b border-r border-rose-gold/40 pointer-events-none" />
+      <div className="absolute top-8 left-8 w-8 h-8 border-t-2 border-l-2 border-rose-gold/40 pointer-events-none" />
+      <div className="absolute top-8 right-8 w-8 h-8 border-t-2 border-r-2 border-rose-gold/40 pointer-events-none" />
+      <div className="absolute bottom-8 left-8 w-8 h-8 border-b-2 border-l-2 border-rose-gold/40 pointer-events-none" />
+      <div className="absolute bottom-8 right-8 w-8 h-8 border-b-2 border-r-2 border-rose-gold/40 pointer-events-none" />
+
+      {/* Puntos decorativos en esquinas internas */}
+      <div className="absolute top-[22px] left-[22px] w-1.5 h-1.5 bg-rose-gold/30 rounded-full pointer-events-none" />
+      <div className="absolute top-[22px] right-[22px] w-1.5 h-1.5 bg-rose-gold/30 rounded-full pointer-events-none" />
+      <div className="absolute bottom-[22px] left-[22px] w-1.5 h-1.5 bg-rose-gold/30 rounded-full pointer-events-none" />
+      <div className="absolute bottom-[22px] right-[22px] w-1.5 h-1.5 bg-rose-gold/30 rounded-full pointer-events-none" />
 
       {/* Cabecera / Bienvenida */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="mt-10 z-10"
+        className="mt-10 z-10 relative"
       >
         <span className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-rose-gold/80 font-medium">
           Te Invito a Celebrar
@@ -53,20 +72,25 @@ export default function HeroSection() {
           transition={{ duration: 1.6, ease: "easeOut", delay: 0.2 }}
           className="relative"
         >
+          {/* Resplandor lunar detrás del nombre */}
+          <div className="absolute inset-0 bg-rose-gold/10 rounded-full blur-[60px] scale-110 -translate-y-4" />
+          
           {/* Nombre caligráfico gigante en Pinyon Script */}
-          <h1 className="font-pinyon text-7xl md:text-9xl text-rose-gold-light tracking-wide drop-shadow-[0_2px_20px_rgba(212,163,115,0.2)]">
+          <h1 className="font-pinyon text-7xl md:text-9xl text-rose-gold-light tracking-wide drop-shadow-[0_2px_20px_rgba(212,163,115,0.3)] relative">
             Marina
           </h1>
-          <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-rose-gold to-transparent my-5 mx-auto" />
+          
+          {/* Línea decorativa con diamante */}
+          <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-rose-gold to-transparent my-5 mx-auto" />
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.3, ease: "easeOut", delay: 0.5 }}
-          className="space-y-4"
+          className="space-y-4 relative"
         >
-          <h2 className="font-cinzel text-base md:text-xl uppercase tracking-[0.3em] text-gold-accent">
+          <h2 className="font-cinzel text-base md:text-xl uppercase tracking-[0.3em] text-gold-accent relative">
             Mis 15 Años
           </h2>
           <p className="font-montserrat text-xs md:text-sm text-slate-300 font-light max-w-xs md:max-w-sm mx-auto leading-relaxed italic px-4">
@@ -80,14 +104,14 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5, delay: 0.8 }}
-        className="flex flex-col items-center z-10 w-full mb-2"
+        className="flex flex-col items-center z-10 w-full mb-2 relative"
       >
         <div className="flex items-center gap-4 mb-2">
-          <div className="w-6 h-[1px] bg-rose-gold/30" />
+          <div className="w-8 h-[1px] bg-gradient-to-r from-transparent to-rose-gold/40" />
           <span className="font-cinzel text-xs md:text-sm tracking-[0.2em] text-slate-200 uppercase">
             Sábado 23 de Mayo
           </span>
-          <div className="w-6 h-[1px] bg-rose-gold/30" />
+          <div className="w-8 h-[1px] bg-gradient-to-l from-transparent to-rose-gold/40" />
         </div>
         <p className="text-[9px] uppercase tracking-widest text-slate-500 font-light mb-6">
           Fecha de Nacimiento

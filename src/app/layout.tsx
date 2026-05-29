@@ -49,6 +49,8 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-navy-dark text-slate-100 flex flex-col overflow-x-hidden">
         {children}
+        <div className="noise-overlay" aria-hidden="true" />
+        <div className="vignette" aria-hidden="true" />
       </body>
     </html>
   );
