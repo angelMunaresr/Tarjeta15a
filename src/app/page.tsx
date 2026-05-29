@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden">
       {/* Fondo de burbujas flotantes interactivas en canvas */}
-      <BubbleBackground />
+      <BubbleBackground excludeSection1={true} />
 
       {/* Reproductor de música de fondo flotante */}
       <MusicPlayer />

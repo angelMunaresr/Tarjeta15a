@@ -12,11 +12,13 @@ interface Star {
   twinkleSpeed: number;
 }
 
-export default function BubbleBackground({ showMoon = true }: { showMoon?: boolean }) {
+export default function BubbleBackground({ showMoon = true, excludeSection1 = false }: { showMoon?: boolean; excludeSection1?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const timeRef = useRef(0);
 
   useEffect(() => {
+    if (excludeSection1) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
