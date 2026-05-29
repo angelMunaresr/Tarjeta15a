@@ -13,6 +13,11 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-dvh w-full flex flex-col justify-between items-center text-center px-6 py-12 overflow-hidden select-none">
+      {/* Número de sección */}
+      <div className="absolute top-4 left-4 z-50 bg-rose-gold/20 border border-rose-gold/40 rounded-full w-8 h-8 flex items-center justify-center">
+        <span className="font-cinzel text-xs text-rose-gold font-bold">1</span>
+      </div>
+
       {/* Luz central en el fondo (destello azul y oro rosa) */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-sea-glow/5 rounded-full blur-[130px] pointer-events-none" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-rose-gold/5 rounded-full blur-[110px] pointer-events-none" />

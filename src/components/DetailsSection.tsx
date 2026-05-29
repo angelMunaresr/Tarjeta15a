@@ -52,6 +52,11 @@ export default function DetailsSection() {
       id="details-section"
       className="relative min-h-screen w-full bg-navy-light flex flex-col items-center justify-center px-6 py-24 select-none overflow-hidden"
     >
+      {/* Número de sección */}
+      <div className="absolute top-4 left-4 z-50 bg-rose-gold/20 border border-rose-gold/40 rounded-full w-8 h-8 flex items-center justify-center">
+        <span className="font-cinzel text-xs text-rose-gold font-bold">3</span>
+      </div>
+
       {/* Luces de profundidad */}
       <div className="absolute top-1/4 left-0 w-[320px] h-[320px] bg-sea-glow/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-[320px] h-[320px] bg-rose-gold/5 rounded-full blur-[120px] pointer-events-none" />

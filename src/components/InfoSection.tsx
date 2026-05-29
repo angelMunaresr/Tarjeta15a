@@ -33,6 +33,11 @@ export default function InfoSection() {
       id="info-section"
       className="relative min-h-screen w-full bg-navy-medium flex flex-col justify-between overflow-hidden select-none py-20"
     >
+      {/* Número de sección */}
+      <div className="absolute top-4 left-4 z-50 bg-rose-gold/20 border border-rose-gold/40 rounded-full w-8 h-8 flex items-center justify-center">
+        <span className="font-cinzel text-xs text-rose-gold font-bold">5</span>
+      </div>
+
       {/* Luces radiales del fondo */}
       <div className="absolute top-1/4 right-0 w-[280px] h-[280px] bg-rose-gold/5 rounded-full blur-[110px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-[280px] h-[280px] bg-sea-glow/5 rounded-full blur-[110px] pointer-events-none" />
