@@ -18,7 +18,7 @@ export default function HeroSection() {
         <span className="font-cinzel text-xs text-rose-gold font-bold">1</span>
       </div>
 
-      {/* Imagen de fondo de la quinceañera */}
+      {/* Imagen de fondo de la quinceañera - con filtro de saturación */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -26,11 +26,14 @@ export default function HeroSection() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           opacity: 0.65,
+          filter: "saturate(1.15)",
         }}
       />
 
-      {/* Overlay oscuro para legibilidad del texto */}
+      {/* Overlay oscuro para legibilidad del texto + viñeta */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-navy-abyss/70 via-navy-dark/40 to-navy-abyss/80 pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-navy-abyss/40 via-transparent to-navy-abyss/40 pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-navy-abyss/60 via-transparent to-navy-abyss/40 pointer-events-none" />
 
       {/* Burbujas grandes - azul brillante con brillo */}
       <div className="absolute top-[10%] left-[5%] w-16 h-16 rounded-full animate-bubble-float z-[3] backdrop-blur-sm" style={{ animationDelay: "0s", background: "radial-gradient(circle at 30% 30%, rgba(173, 216, 255, 0.6) 0%, rgba(100, 149, 237, 0.25) 50%, rgba(30, 60, 114, 0.08) 100%)", boxShadow: "inset -3px -3px 8px rgba(173, 216, 255, 0.3), inset 2px 2px 6px rgba(255, 255, 255, 0.15), 0 0 20px rgba(100, 149, 237, 0.2)" }} />
@@ -73,6 +76,20 @@ export default function HeroSection() {
       <div className="absolute top-1/2 right-1/4 w-[250px] h-[250px] bg-white/2 rounded-full blur-[80px] animate-moon-glow-soft pointer-events-none z-[2]" style={{ animationDelay: "1s" }} />
       <div className="absolute bottom-1/3 left-1/3 w-[200px] h-[200px] bg-white/1.5 rounded-full blur-[60px] animate-moon-glow-soft pointer-events-none z-[2]" style={{ animationDelay: "2s" }} />
 
+      {/* Micro-partículas de espuma flotando */}
+      <div className="absolute top-[5%] left-[15%] w-1 h-1 bg-white/30 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "0.2s" }} />
+      <div className="absolute top-[12%] right-[30%] w-0.5 h-0.5 bg-white/25 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "0.7s" }} />
+      <div className="absolute top-[33%] left-[40%] w-1 h-1 bg-white/20 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "1.1s" }} />
+      <div className="absolute top-[42%] right-[35%] w-0.5 h-0.5 bg-white/35 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "1.5s" }} />
+      <div className="absolute top-[53%] left-[45%] w-1 h-1 bg-white/22 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "1.9s" }} />
+      <div className="absolute top-[68%] right-[40%] w-0.5 h-0.5 bg-white/28 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "2.3s" }} />
+      <div className="absolute bottom-[40%] left-[35%] w-1 h-1 bg-white/18 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "0.5s" }} />
+      <div className="absolute bottom-[15%] right-[30%] w-0.5 h-0.5 bg-white/32 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "1.3s" }} />
+      <div className="absolute top-[78%] left-[8%] w-1 h-1 bg-white/25 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "0.9s" }} />
+      <div className="absolute top-[88%] right-[12%] w-0.5 h-0.5 bg-white/20 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "1.7s" }} />
+      <div className="absolute top-[25%] left-[55%] w-0.5 h-0.5 bg-white/28 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "2.1s" }} />
+      <div className="absolute top-[62%] left-[3%] w-1 h-1 bg-white/15 rounded-full animate-sparkle-float z-[2]" style={{ animationDelay: "0.3s" }} />
+
       {/* Brillo central detrás del nombre */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-gradient-to-br from-white/[0.06] via-transparent to-transparent rounded-full blur-[100px] pointer-events-none animate-soft-glow z-[2]" />
 
@@ -86,6 +103,20 @@ export default function HeroSection() {
       <div className="absolute top-8 right-8 w-6 h-6 border-t border-r border-white/15 pointer-events-none z-[2]" />
       <div className="absolute bottom-8 left-8 w-6 h-6 border-b border-l border-white/15 pointer-events-none z-[2]" />
       <div className="absolute bottom-8 right-8 w-6 h-6 border-b border-r border-white/15 pointer-events-none z-[2]" />
+
+      {/* Líneas decorativas finas flotando */}
+      <div className="absolute top-[15%] left-[20%] w-8 h-px bg-gradient-to-r from-white/20 to-transparent rotate-45 animate-sparkle-float z-[2]" style={{ animationDelay: "0.4s" }} />
+      <div className="absolute top-[30%] right-[25%] w-6 h-px bg-gradient-to-l from-white/15 to-transparent rotate-12 animate-sparkle-float z-[2]" style={{ animationDelay: "0.9s" }} />
+      <div className="absolute top-[55%] left-[15%] w-10 h-px bg-gradient-to-r from-white/12 to-transparent -rotate-12 animate-sparkle-float z-[2]" style={{ animationDelay: "1.4s" }} />
+      <div className="absolute bottom-[35%] right-[20%] w-7 h-px bg-gradient-to-l from-white/18 to-transparent rotate-45 animate-sparkle-float z-[2]" style={{ animationDelay: "1.9s" }} />
+      <div className="absolute top-[70%] left-[30%] w-5 h-px bg-gradient-to-r from-white/10 to-transparent -rotate-30 animate-sparkle-float z-[2]" style={{ animationDelay: "2.4s" }} />
+      <div className="absolute top-[42%] right-[8%] w-9 h-px bg-gradient-to-l from-white/14 to-transparent rotate-30 animate-sparkle-float z-[2]" style={{ animationDelay: "0.6s" }} />
+
+      {/* Puntos decorativos flotando */}
+      <div className="absolute top-[20%] left-[8%] w-0.5 h-0.5 bg-white/25 rounded-full animate-moon-glow-soft z-[2]" style={{ animationDelay: "0.3s" }} />
+      <div className="absolute top-[48%] right-[12%] w-1 h-1 bg-white/15 rounded-full animate-moon-glow-soft z-[2]" style={{ animationDelay: "0.8s" }} />
+      <div className="absolute bottom-[30%] left-[25%] w-0.5 h-0.5 bg-white/20 rounded-full animate-moon-glow-soft z-[2]" style={{ animationDelay: "1.3s" }} />
+      <div className="absolute top-[80%] right-[28%] w-1 h-1 bg-white/12 rounded-full animate-moon-glow-soft z-[2]" style={{ animationDelay: "1.8s" }} />
 
       {/* Cabecera / Bienvenida */}
       <motion.div
@@ -107,11 +138,14 @@ export default function HeroSection() {
           transition={{ duration: 2, ease: "easeOut", delay: 0.1 }}
           className="relative flex flex-col items-center"
         >
-          {/* Resplandor muy suave detrás del nombre */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-rose-gold-light/5 to-transparent rounded-full blur-[100px] scale-125 -translate-y-2 animate-soft-glow" />
+          {/* Glow plateado más pronunciado detrás del nombre */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-rose-gold-light/8 to-transparent rounded-full blur-[120px] scale-130 -translate-y-3 animate-soft-glow" />
 
-          {/* Nombre caligráfico gigante en rose-gold */}
-          <h1 className="font-pinyon text-7xl md:text-9xl text-rose-gold-light tracking-wide drop-shadow-[0_2px_30px_rgba(212,163,115,0.4)] relative">
+          {/* Segunda capa de glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-sea-glow/10 via-transparent to-transparent rounded-full blur-[80px] scale-110 -translate-y-1 animate-moon-glow-soft" />
+
+          {/* Nombre caligráfico gigante en rose-gold con glow */}
+          <h1 className="font-pinyon text-7xl md:text-9xl text-rose-gold-light tracking-wide relative" style={{ textShadow: "0 0 40px rgba(243,229,216,0.5), 0 0 80px rgba(243,229,216,0.25), 0 0 120px rgba(212,163,115,0.15)" }}>
             Marina
           </h1>
 
