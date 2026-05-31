@@ -21,10 +21,6 @@ export default function WaveDivider({
       className={`relative block w-full h-[60px] md:h-[90px] ${fillColor}`}
     >
       <path
-        d="M0,0 C300,40 600,0 900,40 L1200,20 L1200,120 L0,120 Z"
-        className="opacity-40 fill-current"
-      />
-      <path
         d="M0,30 C150,90 350,10 500,50 C650,90 900,20 1200,60 L1200,120 L0,120 Z"
         className="fill-current"
       />

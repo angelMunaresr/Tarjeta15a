@@ -13,8 +13,8 @@ export default function TransitionSection() {
     offset: ["start end", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-3%"]);
 
   return (
     <section
@@ -23,12 +23,13 @@ export default function TransitionSection() {
       className="relative min-h-[85vh] w-full flex flex-col justify-between bg-navy-medium select-none py-20"
       style={{ overflow: "visible" }}
     >
-      {/* Parallax background layer */}
+      {/* Parallax background layer - cubre toda la sección */}
       <motion.div
         className="absolute inset-0 z-[0]"
         style={{ y: backgroundY }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy-medium to-navy-light" />
+        <div className="absolute inset-0 bg-navy-medium" />
       </motion.div>
 
       {/* Número de sección */}
@@ -53,13 +54,9 @@ export default function TransitionSection() {
       <div className="absolute top-[12%] right-[15%] w-1 h-1 rounded-full animate-sparkle-float z-[11]" style={{ animationDelay: "0.4s", background: "radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.08) 70%, transparent 100%)", boxShadow: "0 0 4px rgba(255,255,255,0.22)" }} />
       <div className="absolute top-[15%] left-[20%] w-2 h-2 rounded-full animate-sparkle-float z-[11]" style={{ animationDelay: "0.8s", background: "radial-gradient(circle, rgba(200, 220, 255, 0.5) 0%, rgba(200, 220, 255, 0.08) 70%, transparent 100%)", boxShadow: "0 0 6px rgba(200, 220, 255, 0.2)" }} />
 
-      {/* Micro-partículas de espuma */}
-      <div className="absolute top-[5%] left-[30%] w-0.5 h-0.5 bg-white/20 rounded-full animate-sparkle-float z-[11]" style={{ animationDelay: "0.3s" }} />
+{/* Micro-partículas de espuma */}
       <div className="absolute top-[10%] right-[30%] w-0.5 h-0.5 bg-white/15 rounded-full animate-sparkle-float z-[11]" style={{ animationDelay: "0.7s" }} />
       <div className="absolute top-[15%] left-[45%] w-0.5 h-0.5 bg-white/18 rounded-full animate-sparkle-float z-[11]" style={{ animationDelay: "1.1s" }} />
-
-      {/* Onda superior estática para conectar desde HeroSection */}
-      <WaveDivider className="-mt-20 z-10" fillColor="text-navy-medium" />
 
       {/* Contenido con parallax */}
 <motion.div
