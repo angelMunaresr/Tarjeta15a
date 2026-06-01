@@ -121,7 +121,15 @@ export default function TransitionSection() {
       </motion.div>
 
       {/* Onda inferior animada que transiciona a DetailsSection */}
-      <WaveDivider className="-mb-20 z-10" fillColor="text-navy-light" flip={true} animated={true} />
+      <WaveDivider className="-mb-16 z-10" fillColor="text-navy-light" flip={true} animated={true} height="h-[100px] md:h-[150px]" />
+
+      {/* Burbujas que emergen del agua - efecto innovador */}
+      <div className="absolute bottom-[8%] left-[10%] w-4 h-4 rounded-full animate-bubble-rise z-[11] backdrop-blur-sm" style={{ animationDelay: "0s", background: "radial-gradient(circle at 30% 30%, rgba(200, 220, 255, 0.7) 0%, rgba(100, 149, 237, 0.35) 50%, rgba(60, 90, 150, 0.1) 100%)", boxShadow: "inset -1px -1px 3px rgba(255,255,255,0.3), inset 1px 1px 2px rgba(255,255,255,0.15), 0 0 10px rgba(100, 149, 237, 0.4)" }} />
+      <div className="absolute bottom-[12%] left-[25%] w-3 h-3 rounded-full animate-bubble-rise z-[11] backdrop-blur-sm" style={{ animationDelay: "0.5s", background: "radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(220, 235, 255, 0.4) 50%, rgba(180, 200, 240, 0.1) 100%)", boxShadow: "inset -1px -1px 2px rgba(255,255,255,0.35), inset 1px 1px 1px rgba(255,255,255,0.2), 0 0 8px rgba(220, 235, 255, 0.35)" }} />
+      <div className="absolute bottom-[6%] right-[15%] w-5 h-5 rounded-full animate-bubble-rise z-[11] backdrop-blur-sm" style={{ animationDelay: "1s", background: "radial-gradient(circle at 30% 30%, rgba(150, 180, 220, 0.65) 0%, rgba(80, 120, 180, 0.3) 50%, rgba(40, 70, 130, 0.08) 100%)", boxShadow: "inset -1px -1px 3px rgba(150, 180, 220, 0.3), inset 1px 1px 2px rgba(255,255,255,0.15), 0 0 12px rgba(80, 120, 180, 0.3)" }} />
+      <div className="absolute bottom-[10%] right-[35%] w-2.5 h-2.5 rounded-full animate-bubble-rise z-[11] backdrop-blur-sm" style={{ animationDelay: "1.5s", background: "radial-gradient(circle at 30% 30%, rgba(200, 220, 255, 0.75) 0%, rgba(100, 149, 237, 0.35) 50%, rgba(60, 90, 150, 0.1) 100%)", boxShadow: "inset -1px -1px 2px rgba(200, 220, 255, 0.35), inset 1px 1px 1px rgba(255,255,255,0.18), 0 0 7px rgba(100, 149, 237, 0.32)" }} />
+      <div className="absolute bottom-[14%] left-[45%] w-3.5 h-3.5 rounded-full animate-bubble-rise z-[11] backdrop-blur-sm" style={{ animationDelay: "2s", background: "radial-gradient(circle at 30% 30%, rgba(176, 196, 222, 0.6) 0%, rgba(100, 149, 237, 0.28) 50%, rgba(40, 80, 140, 0.08) 100%)", boxShadow: "inset -1px -1px 2px rgba(176, 196, 222, 0.28), inset 1px 1px 1px rgba(255,255,255,0.14), 0 0 9px rgba(100, 149, 237, 0.28)" }} />
+      <div className="absolute bottom-[5%] left-[60%] w-2 h-2 rounded-full animate-bubble-rise z-[11] backdrop-blur-sm" style={{ animationDelay: "0.3s", background: "radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7) 0%, rgba(210, 230, 255, 0.35) 50%, rgba(160, 190, 230, 0.1) 100%)", boxShadow: "inset -1px -1px 2px rgba(255,255,255,0.32), inset 1px 1px 1px rgba(255,255,255,0.16), 0 0 6px rgba(210, 230, 255, 0.32)" }} />
     </section>
   );
 }
