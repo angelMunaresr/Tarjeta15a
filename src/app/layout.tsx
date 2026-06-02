@@ -47,6 +47,14 @@ export default function RootLayout({
       lang="es"
       className={`${cinzel.variable} ${montserrat.variable} ${alexBrush.variable} ${pinyonScript.variable} h-full antialiased`}
     >
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/img/quinceañera.webp"
+          fetchPriority="high"
+        />
+      </head>
       <body className="min-h-full bg-navy-dark text-slate-100 flex flex-col overflow-x-hidden">
         {children}
         <div className="noise-overlay" aria-hidden="true" />
