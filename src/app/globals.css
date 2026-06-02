@@ -471,3 +471,17 @@ input, textarea, select, .selectable-text {
 .animate-moon-glow-soft {
   animation: moonGlowSoft 12s infinite ease-in-out;
 }
+
+/* Variantes para burbujas animadas del Hero
+ * Los colores y sombras se inyectan via CSS custom properties (--bg-c1, --bg-c2, --bg-c3, --bubble-shadow)
+ * para mantener el JSX limpio y mover la pintura al stylesheet.
+ */
+.bubble-glass {
+  background: radial-gradient(circle at 30% 30%, var(--bg-c1, transparent) 0%, var(--bg-c2, transparent) 50%, var(--bg-c3, transparent) 100%);
+  box-shadow: var(--bubble-shadow, none);
+}
+
+.sparkle-glow {
+  background: radial-gradient(circle, var(--bg-c1, transparent) 0%, var(--bg-c2, transparent) 70%, transparent 100%);
+  box-shadow: var(--bubble-shadow, none);
+}
