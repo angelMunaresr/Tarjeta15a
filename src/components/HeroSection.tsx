@@ -22,7 +22,7 @@ export default function HeroSection() {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/img/quinceañera.jpg')",
+          backgroundImage: "url('/img/quinceañera.webp'), url('/img/quinceañera.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           opacity: 0.65,
