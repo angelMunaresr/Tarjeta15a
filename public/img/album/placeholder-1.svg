@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a3a5c"/>
+      <stop offset="40%" stop-color="#0c1a30"/>
+      <stop offset="80%" stop-color="#3d2a4a"/>
+      <stop offset="100%" stop-color="#5a3a5e"/>
+    </linearGradient>
+    <radialGradient id="moon1" cx="0.78" cy="0.18" r="0.18">
+      <stop offset="0%" stop-color="rgba(243,229,216,0.6)"/>
+      <stop offset="60%" stop-color="rgba(232,223,194,0.2)"/>
+      <stop offset="100%" stop-color="rgba(232,223,194,0)"/>
+    </radialGradient>
+    <radialGradient id="vignette1" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="60%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.6)"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#g1)"/>
+  <rect width="600" height="800" fill="url(#moon1)"/>
+  <g opacity="0.5">
+    <circle cx="120" cy="180" r="1" fill="white"/>
+    <circle cx="320" cy="120" r="1.5" fill="white"/>
+    <circle cx="480" cy="240" r="1" fill="white"/>
+    <circle cx="200" cy="280" r="1" fill="white"/>
+    <circle cx="80" cy="380" r="1.2" fill="white"/>
+    <circle cx="420" cy="420" r="1" fill="white"/>
+    <circle cx="540" cy="500" r="1" fill="white"/>
+  </g>
+  <path d="M 0 620 Q 150 600, 300 620 T 600 615 L 600 800 L 0 800 Z" fill="rgba(0, 18, 32, 0.7)"/>
+  <path d="M 0 680 Q 150 660, 300 680 T 600 675 L 600 800 L 0 800 Z" fill="rgba(0, 12, 24, 0.85)"/>
+  <rect width="600" height="800" fill="url(#vignette1)"/>
+  <text x="300" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="120" fill="rgba(243,229,216,0.18)" font-weight="400">I</text>
+</svg>

@@ -3,8 +3,8 @@ import RippleEffect from "@/components/RippleEffect";
 import HeroSection from "@/components/HeroSection";
 import TransitionSection from "@/components/TransitionSection";
 import DetailsSection from "@/components/DetailsSection";
-import RsvpSection from "@/components/RsvpSection";
-import InfoSection from "@/components/InfoSection";
+import RsvpAndInfoSection from "@/components/RsvpAndInfoSection";
+import PhotoAlbumSection from "@/components/PhotoAlbumSection";
 import MusicPlayer from "@/components/MusicPlayer";
 
 export default function Home() {
@@ -21,14 +21,14 @@ export default function Home() {
 
       {/* Secciones del Scroll */}
       <HeroSection />
-      
+
       <TransitionSection />
-      
+
       <DetailsSection />
-      
-      <RsvpSection />
-      
-      <InfoSection />
+
+      <RsvpAndInfoSection />
+
+      <PhotoAlbumSection />
     </main>
   );
 }
