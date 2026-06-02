@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Compass, Map, Navigation, Anchor } from "lucide-react";
+import { Clock, MapPin, Map, Star, Shell } from "lucide-react";
 
 interface TimeLeft {
   days: number;
@@ -43,9 +43,8 @@ export default function DetailsSection() {
     return () => clearInterval(timer);
   }, []);
 
-  const mapQuery = "Mar+del+Plata,+Buenos+Aires,+Argentina";
+  const mapQuery = "Milennium+Eventos+Mar+del+Plata";
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
-  const wazeUrl = `https://waze.com/ul?q=${mapQuery}&navigate=yes`;
 
   return (
     <section
@@ -61,40 +60,65 @@ export default function DetailsSection() {
       <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-sea-glow/[0.03] rounded-full blur-[150px] pointer-events-none animate-golden-shimmer" />
       <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-rose-gold/[0.04] rounded-full blur-[150px] pointer-events-none" />
 
-      {/* Brújula decorativa girando lentamente */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[8%] right-[6%] w-32 h-32 md:w-44 md:h-44 opacity-[0.06] pointer-events-none"
-        aria-hidden="true"
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full text-rose-gold">
-          <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.5" />
-          <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 2" />
-          <circle cx="50" cy="50" r="28" fill="none" stroke="currentColor" strokeWidth="0.3" />
-          <g stroke="currentColor" strokeWidth="0.5">
-            <line x1="50" y1="2" x2="50" y2="14" />
-            <line x1="50" y1="86" x2="50" y2="98" />
-            <line x1="2" y1="50" x2="14" y2="50" />
-            <line x1="86" y1="50" x2="98" y2="50" />
-            <line x1="18" y1="18" x2="26" y2="26" />
-            <line x1="74" y1="18" x2="82" y2="26" />
-            <line x1="18" y1="82" x2="26" y2="74" />
-            <line x1="74" y1="82" x2="82" y2="74" />
-          </g>
-          <polygon points="50,8 54,50 50,46 46,50" fill="currentColor" />
-          <polygon points="50,92 46,50 50,54 54,50" fill="currentColor" opacity="0.5" />
-          <circle cx="50" cy="50" r="3" fill="currentColor" />
-        </svg>
-      </motion.div>
+      {/* Luna grande decorativa con halo plateado - esquina superior derecha */}
+      <div className="absolute top-[5%] right-[6%] z-[1] pointer-events-none" aria-hidden="true">
+        <div className="relative">
+          {/* Halo exterior plateado */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[500px] md:h-[500px] bg-silver-bright/[0.04] rounded-full blur-[100px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[320px] md:h-[320px] bg-silver-shine/[0.06] rounded-full blur-[60px]" />
 
-      {/* Ancla decorativa sutil */}
-      <div className="absolute bottom-[10%] left-[5%] w-20 h-20 md:w-28 md:h-28 opacity-[0.05] pointer-events-none" aria-hidden="true">
-        <Anchor className="w-full h-full text-rose-gold" strokeWidth={1} />
+          {/* Luna propiamente dicha */}
+          <motion.div
+            animate={{ scale: [1, 1.03, 1] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="relative w-24 h-24 md:w-32 md:h-32"
+          >
+            {/* Halo de luna */}
+            <div className="absolute inset-0 rounded-full bg-silver-bright/20 blur-2xl" />
+            {/* Cuerpo de la luna */}
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: "radial-gradient(circle at 35% 35%, #FAFAFF 0%, #E8E8F0 50%, #C8C8D0 100%)",
+                boxShadow: "inset -8px -8px 20px rgba(168,168,184,0.4), 0 0 60px rgba(232,232,240,0.25), 0 0 120px rgba(232,232,240,0.1)",
+              }}
+            />
+            {/* Cráteres sutiles */}
+            <div className="absolute top-[30%] left-[25%] w-3 h-3 rounded-full bg-silver-deep/15 blur-[2px]" />
+            <div className="absolute top-[55%] left-[55%] w-2 h-2 rounded-full bg-silver-deep/15 blur-[1px]" />
+            <div className="absolute top-[40%] left-[60%] w-1.5 h-1.5 rounded-full bg-silver-deep/10 blur-[1px]" />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Estrellas reflejadas (mitad inferior) */}
+      <div className="absolute bottom-[20%] left-[10%] w-1 h-1 rounded-full bg-silver-shine/60 animate-silver-twinkle pointer-events-none" />
+      <div className="absolute bottom-[35%] left-[25%] w-1.5 h-1.5 rounded-full bg-silver-bright/50 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "1s" }} />
+      <div className="absolute bottom-[45%] right-[15%] w-1 h-1 rounded-full bg-silver-shine/70 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "2s" }} />
+      <div className="absolute bottom-[30%] right-[30%] w-1.5 h-1.5 rounded-full bg-silver-bright/40 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "0.5s" }} />
+      <div className="absolute bottom-[15%] left-[45%] w-1 h-1 rounded-full bg-silver-shine/60 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "1.5s" }} />
+      <div className="absolute bottom-[50%] right-[8%] w-1 h-1 rounded-full bg-silver-bright/50 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "2.5s" }} />
+
+      {/* Concha marina decorativa sutil - esquina superior izquierda */}
+      <div className="absolute top-[15%] left-[5%] w-16 h-16 opacity-[0.06] pointer-events-none" aria-hidden="true">
+        <Shell className="w-full h-full text-rose-gold" strokeWidth={0.8} />
+      </div>
+
+      {/* Estrella de mar decorativa - esquina inferior derecha */}
+      <div className="absolute bottom-[15%] right-[5%] w-14 h-14 opacity-[0.06] pointer-events-none" aria-hidden="true">
+        <Star className="w-full h-full text-rose-gold" strokeWidth={0.8} />
       </div>
 
       {/* Marco decorativo exterior */}
       <div className="absolute inset-8 border border-rose-gold/8 pointer-events-none rounded-sm" />
+
+      {/* Partículas plateadas orbitando el título - se posicionan con absolute */}
+      <div className="absolute top-[28%] left-[15%] w-1.5 h-1.5 rounded-full bg-silver-shine animate-silver-sparkle pointer-events-none z-[2]" style={{ animationDelay: "0s" }} />
+      <div className="absolute top-[26%] right-[18%] w-1 h-1 rounded-full bg-silver-bright animate-silver-sparkle pointer-events-none z-[2]" style={{ animationDelay: "0.8s" }} />
+      <div className="absolute top-[32%] left-[22%] w-0.5 h-0.5 rounded-full bg-silver-shine animate-silver-sparkle pointer-events-none z-[2]" style={{ animationDelay: "1.6s" }} />
+      <div className="absolute top-[30%] right-[22%] w-1 h-1 rounded-full bg-silver-bright animate-silver-sparkle pointer-events-none z-[2]" style={{ animationDelay: "2.4s" }} />
+      <div className="absolute top-[34%] left-[10%] w-0.5 h-0.5 rounded-full bg-silver-shine animate-silver-twinkle pointer-events-none z-[2]" style={{ animationDelay: "0.4s" }} />
+      <div className="absolute top-[24%] right-[10%] w-0.5 h-0.5 rounded-full bg-silver-bright animate-silver-twinkle pointer-events-none z-[2]" style={{ animationDelay: "1.2s" }} />
 
       {/* Título de la Sección */}
       <motion.div
@@ -104,162 +128,132 @@ export default function DetailsSection() {
         transition={{ duration: 0.8 }}
         className="text-center mb-10 z-10"
       >
-        <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-rose-gold font-semibold mb-2 block">
-          Bitácora del Viaje
-        </span>
-        <h2 className="font-cinzel text-3xl md:text-4xl text-slate-100 font-bold tracking-wide">
-          Carta de Embarque
+        {/* H2 con color naranja (rose-gold) */}
+        <h2
+          className="font-cinzel text-3xl md:text-5xl font-bold tracking-wide text-rose-gold"
+          style={{
+            textShadow: "0 0 20px rgba(212,163,115,0.4), 0 0 40px rgba(212,163,115,0.2)",
+          }}
+        >
+          Lugar y Fecha
         </h2>
-        <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-rose-gold to-transparent my-4 mx-auto" />
-        <p className="font-montserrat text-xs text-slate-400 font-light max-w-sm mx-auto leading-relaxed mt-2 px-2">
-          Presentá este pasaje en la dársena de la fiesta. Tu butaca ya está reservada bajo las estrellas.
+
+        <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-rose-gold/60 to-transparent my-4 mx-auto" />
+        <p className="font-montserrat text-xs text-slate-400 font-light max-w-md mx-auto leading-relaxed mt-2 px-2">
+          La noche del 14 de noviembre el mar nos espera en Mar del Plata para una velada que quedará en la memoria.
         </p>
       </motion.div>
 
-      {/* Carta de Embarque - Boarding Pass */}
+      {/* Tarjeta principal - Superficie del mar de noche */}
       <motion.div
-        initial={{ opacity: 0, y: 40, rotateX: 8 }}
-        whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         className="w-full max-w-md z-10"
-        style={{ perspective: "1000px" }}
       >
         <div className="relative">
-          {/* Sombra suave del boleto */}
-          <div className="absolute inset-0 bg-rose-gold/10 blur-2xl rounded-3xl -m-2" />
+          {/* Sombra suave de la tarjeta */}
+          <div className="absolute inset-0 bg-silver-bright/8 blur-2xl rounded-3xl -m-2" />
 
-          {/* Tarjeta principal del boarding pass */}
+          {/* Tarjeta principal - superficie de agua nocturna */}
           <div className="relative glass-panel rounded-3xl overflow-hidden shadow-2xl texture-velvet">
-            {/* Línea perforada central (efecto boarding pass) */}
-            <div className="absolute left-0 right-0 top-[58%] z-20 pointer-events-none">
-              <div className="relative h-px">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-rose-gold/30 to-transparent" />
-                <div className="absolute -left-3 -top-2 w-6 h-6 rounded-full bg-navy-light border border-rose-gold/20" />
-                <div className="absolute -right-3 -top-2 w-6 h-6 rounded-full bg-navy-light border border-rose-gold/20" />
-              </div>
-            </div>
-
-            {/* Esquina superior - Cabecera del boarding pass */}
-            <div className="relative px-6 pt-6 pb-5 bg-gradient-to-b from-navy-dark/40 to-transparent">
-              <div className="flex items-center justify-between mb-4">
+            {/* Header - pequeña luna + título */}
+            <div className="relative px-6 pt-7 pb-5 z-[2]">
+              <div className="flex items-center justify-center mb-4">
                 <div className="flex items-center gap-2">
-                  <Anchor className="w-4 h-4 text-rose-gold" />
-                  <span className="font-cinzel text-[9px] uppercase tracking-[0.3em] text-rose-gold font-bold">
-                    Quinceañera Line
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-gold animate-pulse" />
-                  <span className="font-cinzel text-[9px] uppercase tracking-[0.2em] text-rose-gold-light font-semibold">
-                    Activo
+                  <motion.div
+                    animate={{ rotate: [0, 8, 0, -8, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <Star className="w-3.5 h-3.5 text-silver-bright" fill="currentColor" />
+                  </motion.div>
+                  <span
+                    className="font-cinzel text-[9px] uppercase tracking-[0.3em] font-bold"
+                    style={{ color: "rgba(232,232,240,0.7)", textShadow: "0 0 6px rgba(232,232,240,0.3)" }}
+                  >
+                    Noche de Luna Llena
                   </span>
                 </div>
               </div>
 
-              {/* Título principal del embarque */}
-              <div className="text-center py-2">
-                <p className="font-cinzel text-[9px] uppercase tracking-[0.4em] text-slate-400 mb-1.5">
-                  Pasaje N°
+              {/* Fecha destacada con shimmer plateado */}
+              <div className="text-center py-2 relative">
+                <p
+                  className="font-cinzel text-[9px] uppercase tracking-[0.4em] text-slate-400 mb-1.5"
+                  style={{ textShadow: "0 0 6px rgba(232,232,240,0.2)" }}
+                >
+                  La Marea Sube el
                 </p>
-                <p className="font-pinyon text-6xl md:text-7xl text-rose-gold-light leading-none" style={{ textShadow: "0 0 30px rgba(243,229,216,0.35), 0 0 60px rgba(212,163,115,0.15)" }}>
-                  XV
+                <p
+                  className="font-pinyon text-5xl md:text-6xl text-silver-shine leading-none silver-shimmer-text"
+                  style={{
+                    textShadow: "0 0 20px rgba(250,250,255,0.5), 0 0 40px rgba(232,232,240,0.3), 0 0 60px rgba(212,163,115,0.15)",
+                  }}
+                >
+                  14 de Noviembre
                 </p>
                 <p className="font-montserrat text-[10px] uppercase tracking-[0.25em] text-rose-gold mt-2 font-semibold">
-                  Zarpe a mis 15 años
+                  Sábado · 2026
                 </p>
               </div>
             </div>
 
-            {/* Cuerpo del boarding pass - Datos del viaje */}
-            <div className="px-6 py-5 space-y-4">
-              {/* Fila: Pasajera / Embarcación */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="font-cinzel text-[8px] uppercase tracking-[0.25em] text-slate-500 mb-1 font-semibold">
-                    Pasajera
-                  </p>
-                  <p className="font-pinyon text-2xl text-slate-100 leading-none">
-                    Marina
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="font-cinzel text-[8px] uppercase tracking-[0.25em] text-slate-500 mb-1 font-semibold">
-                    Embarcación
-                  </p>
-                  <p className="font-montserrat text-sm text-rose-gold-light font-semibold">
-                    Sueños M15
-                  </p>
-                </div>
-              </div>
-
-              <div className="h-px bg-gradient-to-r from-transparent via-rose-gold/15 to-transparent" />
-
-              {/* Fila: Origen / Destino (con flecha) */}
-              <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-                <div>
-                  <p className="font-cinzel text-[8px] uppercase tracking-[0.25em] text-slate-500 mb-1 font-semibold">
-                    Origen
-                  </p>
-                  <p className="font-montserrat text-sm text-slate-200 font-medium">
-                    Tu Corazón
-                  </p>
-                </div>
-                <motion.div
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="flex flex-col items-center"
+            {/* Cuerpo de la tarjeta - datos del evento */}
+            <div className="px-6 py-5 space-y-4 relative z-[2]">
+              {/* Fila: Destino */}
+              <div>
+                <p className="font-cinzel text-[8px] uppercase tracking-[0.25em] text-slate-500 mb-1 font-semibold text-center">
+                  Costa
+                </p>
+                <p
+                  className="font-montserrat text-base font-semibold text-center silver-shimmer-text"
+                  style={{ textShadow: "0 0 8px rgba(232,232,240,0.3)" }}
                 >
-                  <Navigation className="w-4 h-4 text-rose-gold rotate-45" />
-                  <span className="text-rose-gold/40 text-[8px] mt-0.5">━━━━━</span>
-                </motion.div>
-                <div className="text-right">
-                  <p className="font-cinzel text-[8px] uppercase tracking-[0.25em] text-slate-500 mb-1 font-semibold">
-                    Destino
-                  </p>
-                  <p className="font-montserrat text-sm text-rose-gold-light font-semibold">
-                    Mar del Plata
-                  </p>
-                </div>
+                  Mar del Plata
+                </p>
               </div>
 
               <div className="h-px bg-gradient-to-r from-transparent via-rose-gold/15 to-transparent" />
 
-              {/* Fila: Fecha / Hora */}
+              {/* Fila: Iconos de Hora y Ubicación */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-start gap-2.5">
-                  <div className="p-1.5 rounded-lg bg-navy-dark/60 border border-rose-gold/15 text-rose-gold shrink-0 mt-0.5">
-                    <Calendar className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <p className="font-cinzel text-[8px] uppercase tracking-[0.25em] text-slate-500 mb-0.5 font-semibold">
-                      Fecha
-                    </p>
-                    <p className="font-montserrat text-xs text-slate-100 font-semibold leading-tight">
-                      14 NOV 2026
-                    </p>
-                  </div>
-                </div>
                 <div className="flex items-start gap-2.5">
                   <div className="p-1.5 rounded-lg bg-navy-dark/60 border border-rose-gold/15 text-rose-gold shrink-0 mt-0.5">
                     <Clock className="w-3.5 h-3.5" />
                   </div>
                   <div>
                     <p className="font-cinzel text-[8px] uppercase tracking-[0.25em] text-slate-500 mb-0.5 font-semibold">
-                      Zarpe
+                      Recepción
                     </p>
                     <p className="font-montserrat text-xs text-slate-100 font-semibold leading-tight">
                       21:00 hs
                     </p>
                   </div>
                 </div>
+                <div className="flex items-start gap-2.5">
+                  <div className="p-1.5 rounded-lg bg-navy-dark/60 border border-rose-gold/15 text-rose-gold shrink-0 mt-0.5">
+                    <MapPin className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <p className="font-cinzel text-[8px] uppercase tracking-[0.25em] text-slate-500 mb-0.5 font-semibold">
+                      Ubicación
+                    </p>
+                    <p className="font-montserrat text-xs text-slate-100 font-semibold leading-tight">
+                      Milennium Eventos
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Sección inferior - Cuenta regresiva estilo "tiempo de viaje" */}
-            <div className="relative px-6 py-5 bg-gradient-to-b from-navy-dark/30 to-navy-dark/50">
-              <p className="font-cinzel text-[8px] uppercase tracking-[0.3em] text-rose-gold/80 mb-3 text-center font-semibold">
-                Tiempo Restante para el Zarpe
+            {/* Sección inferior - Cuenta regresiva "tiempo para que suba la marea" */}
+            <div className="relative px-6 py-5 bg-gradient-to-b from-navy-dark/30 to-navy-dark/50 z-[2]">
+              <p
+                className="font-cinzel text-[8px] uppercase tracking-[0.3em] mb-3 text-center font-semibold"
+                style={{ color: "rgba(232,232,240,0.8)", textShadow: "0 0 6px rgba(232,232,240,0.3)" }}
+              >
+                Tiempo para que suba la marea
               </p>
               {mounted && timeLeft ? (
                 <div className="grid grid-cols-4 gap-2">
@@ -270,7 +264,17 @@ export default function DetailsSection() {
                     { label: "Seg", value: timeLeft.seconds },
                   ].map((item, idx) => (
                     <div key={idx} className="text-center relative">
-                      <div className="font-cinzel text-2xl md:text-3xl font-bold text-rose-gold-light tracking-tight drop-shadow-[0_2px_8px_rgba(212,163,115,0.25)]">
+                      {/* Diamante plateado sobre cada número */}
+                      <motion.div
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
+                        transition={{ duration: 2.5, repeat: Infinity, delay: idx * 0.4 }}
+                        className="absolute top-[-6px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rotate-45 bg-silver-shine pointer-events-none"
+                        style={{ boxShadow: "0 0 6px rgba(250,250,255,0.7)" }}
+                      />
+                      <div
+                        className="font-cinzel text-2xl md:text-3xl font-bold tracking-tight silver-shimmer-text"
+                        style={{ textShadow: "0 0 10px rgba(232,232,240,0.5), 0 0 20px rgba(232,232,240,0.25), 0 2px 4px rgba(0,0,0,0.4)" }}
+                      >
                         {String(item.value).padStart(2, "0")}
                       </div>
                       <div className="text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-slate-400 mt-1 font-medium">
@@ -298,39 +302,7 @@ export default function DetailsSection() {
               )}
             </div>
 
-            {/* Pie del boarding pass - coordenadas y sello */}
-            <div className="relative px-6 py-4 flex items-center justify-between gap-3">
-              <div className="flex-1 min-w-0">
-                <p className="font-cinzel text-[7px] uppercase tracking-[0.25em] text-slate-500 mb-1 font-semibold">
-                  Coordenadas
-                </p>
-                <p className="font-mono text-[10px] text-rose-gold/80 tracking-wider truncate">
-                  38°00′08″S · 57°33′27″O
-                </p>
-              </div>
-
-              {/* Sello de cera animado */}
-              <motion.div
-                initial={{ scale: 0, rotate: -20 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6, type: "spring", stiffness: 200, damping: 12 }}
-                className="relative shrink-0"
-              >
-                <div className="absolute inset-0 bg-rose-gold/30 rounded-full blur-md" />
-                <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-rose-gold via-rose-gold-dark to-rose-gold-dark flex items-center justify-center shadow-lg">
-                  <div className="absolute inset-1 rounded-full border border-dashed border-navy-dark/40" />
-                  <div className="text-center">
-                    <Compass className="w-4 h-4 text-navy-dark mx-auto" strokeWidth={2.5} />
-                    <p className="font-cinzel text-[5px] uppercase tracking-wider text-navy-dark font-bold leading-none mt-0.5">
-                      XV
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Adornos en esquinas del boarding pass */}
+            {/* Adornos en esquinas de la tarjeta */}
             <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-rose-gold/30" />
             <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-rose-gold/30" />
             <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-rose-gold/30" />
@@ -339,7 +311,7 @@ export default function DetailsSection() {
         </div>
       </motion.div>
 
-      {/* Mini Carta Náutica decorativa + Botones */}
+      {/* Tarjeta secundaria - Costa (botones de mapa) */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -355,60 +327,63 @@ export default function DetailsSection() {
 
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="font-cinzel text-[9px] uppercase tracking-[0.3em] text-rose-gold font-bold">
-                Puerto de Destino
+              <p
+                className="font-cinzel text-[9px] uppercase tracking-[0.3em] font-bold"
+                style={{ color: "rgba(232,232,240,0.75)", textShadow: "0 0 6px rgba(232,232,240,0.25)" }}
+              >
+                El Salón
               </p>
-              <p className="font-montserrat text-sm text-slate-100 font-medium mt-0.5">
-                Salón en Mar del Plata
+              <p
+                className="font-montserrat text-sm font-medium mt-0.5"
+                style={{ color: "rgba(232,232,240,0.9)", textShadow: "0 0 6px rgba(232,232,240,0.2)" }}
+              >
+                Milennium Eventos · Mar del Plata
               </p>
             </div>
 
-            {/* Mini carta náutica SVG */}
-            <div className="relative w-14 h-14 shrink-0">
-              <svg viewBox="0 0 60 60" className="w-full h-full text-rose-gold/50">
-                <circle cx="30" cy="30" r="28" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                <circle cx="30" cy="30" r="22" fill="none" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 2" />
-                <path d="M 5 38 Q 15 35, 25 38 T 55 36 L 55 55 L 5 55 Z" fill="currentColor" opacity="0.15" />
-                <path d="M 5 42 Q 15 39, 25 42 T 55 40" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
-                <path d="M 5 46 Q 15 43, 25 46 T 55 44" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
-                <motion.g
-                  animate={{ x: [0, 2, 0, -2, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <text x="30" y="25" textAnchor="middle" fontSize="6" fill="currentColor" fontFamily="serif">★</text>
-                </motion.g>
-                <circle cx="30" cy="22" r="1.5" fill="currentColor" />
-              </svg>
+            {/* Mini reflejo lunar */}
+            <div className="relative w-14 h-14 shrink-0 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-silver-bright/10 blur-md" />
+              <motion.div
+                animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="relative w-7 h-7 rounded-full"
+                style={{
+                  background: "radial-gradient(circle at 35% 35%, #FAFAFF 0%, #E8E8F0 60%, #C8C8D0 100%)",
+                  boxShadow: "0 0 12px rgba(232,232,240,0.4)",
+                }}
+              />
+              {/* Mini reflejo debajo */}
+              <div
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-3"
+                style={{
+                  background: "linear-gradient(to bottom, rgba(232,232,240,0.4), transparent)",
+                  filter: "blur(1px)",
+                }}
+              />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="flex justify-center">
             <a
               href={googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 h-11 bg-navy-medium/60 hover:bg-navy-medium border border-rose-gold/15 hover:border-rose-gold/30 rounded-xl text-xs font-medium text-slate-200 transition-all active:scale-[0.98] outline-none min-h-[44px]"
+              className="flex items-center justify-center gap-2 w-full max-w-xs h-11 bg-navy-medium/60 hover:bg-navy-medium border border-rose-gold/15 hover:border-rose-gold/30 rounded-xl text-xs font-medium text-slate-200 transition-all active:scale-[0.98] outline-none min-h-[44px]"
             >
               <Map className="w-4 h-4 text-sea-glow" />
               Google Maps
-            </a>
-            <a
-              href={wazeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 h-11 bg-rose-gold/10 hover:bg-rose-gold/20 border border-rose-gold/20 hover:border-rose-gold/35 rounded-xl text-xs font-medium text-rose-gold transition-all active:scale-[0.98] outline-none min-h-[44px]"
-            >
-              <span className="font-bold text-xs">W</span>
-              Ir con Waze
             </a>
           </div>
         </div>
       </motion.div>
 
-      {/* Burbujas que emergen del fondo */}
-      <div className="absolute bottom-[5%] left-[8%] w-3 h-3 rounded-full animate-bubble-rise pointer-events-none" style={{ background: "radial-gradient(circle at 30% 30%, rgba(200, 220, 255, 0.65) 0%, rgba(100, 149, 237, 0.3) 50%, rgba(60, 90, 150, 0.08) 100%)", boxShadow: "inset -1px -1px 3px rgba(255,255,255,0.3), inset 1px 1px 2px rgba(255,255,255,0.15), 0 0 8px rgba(100, 149, 237, 0.35)" }} />
-      <div className="absolute bottom-[10%] right-[12%] w-4 h-4 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "0.7s", background: "radial-gradient(circle at 30% 30%, rgba(150, 180, 220, 0.6) 0%, rgba(80, 120, 180, 0.28) 50%, rgba(40, 70, 130, 0.08) 100%)", boxShadow: "inset -1px -1px 3px rgba(150, 180, 220, 0.28), inset 1px 1px 2px rgba(255,255,255,0.14), 0 0 10px rgba(80, 120, 180, 0.3)" }} />
+      {/* Burbujas que emergen del fondo - aumentado para reforzar tema */}
+      <div className="absolute bottom-[5%] left-[8%] w-3 h-3 rounded-full animate-bubble-rise pointer-events-none" style={{ background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.65) 0%, rgba(200,220,240,0.3) 50%, rgba(60, 90, 150, 0.08) 100%)", boxShadow: "inset -1px -1px 3px rgba(255,255,255,0.3), inset 1px 1px 2px rgba(255,255,255,0.15), 0 0 8px rgba(232,232,240,0.4)" }} />
+      <div className="absolute bottom-[10%] right-[12%] w-4 h-4 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "0.7s", background: "radial-gradient(circle at 30% 30%, rgba(150, 180, 220, 0.6) 0%, rgba(80, 120, 180, 0.28) 50%, rgba(40, 70, 130, 0.08) 100%)", boxShadow: "inset -1px -1px 3px rgba(150, 180, 220, 0.28), inset 1px 1px 2px rgba(255,255,255,0.14), 0 0 10px rgba(150, 180, 220, 0.3)" }} />
       <div className="absolute bottom-[15%] left-[40%] w-2.5 h-2.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "1.4s", background: "radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7) 0%, rgba(210, 230, 255, 0.35) 50%, rgba(160, 190, 230, 0.1) 100%)", boxShadow: "inset -1px -1px 2px rgba(255,255,255,0.32), inset 1px 1px 1px rgba(255,255,255,0.16), 0 0 7px rgba(210, 230, 255, 0.32)" }} />
+      <div className="absolute bottom-[8%] right-[35%] w-2 h-2 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "2s", background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.6) 0%, rgba(192,192,200,0.25) 50%, rgba(80, 80, 120, 0.05) 100%)", boxShadow: "inset -1px -1px 2px rgba(255,255,255,0.28), inset 1px 1px 1px rgba(255,255,255,0.14), 0 0 6px rgba(232,232,240,0.28)" }} />
+      <div className="absolute bottom-[20%] left-[20%] w-1.5 h-1.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "1s", background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.5) 0%, rgba(180,200,230,0.2) 50%, transparent 100%)", boxShadow: "0 0 5px rgba(232,232,240,0.3)" }} />
     </section>
   );
 }

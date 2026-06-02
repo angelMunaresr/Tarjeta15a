@@ -25,7 +25,12 @@
   --color-sea-soft: #0ea5e9;       /* Azul mar cielo */
   --color-sea-foam: #98D8C8;       /* Espuma de mar */
   --color-sea-wave: #006699;       /* Ola mar */
-  
+
+  /* Plateados del Reflejo de Luna */
+  --color-silver-bright: #E8E8F0;  /* Plata brillante frío */
+  --color-silver-shine: #FAFAFF;   /* Plata con destello casi blanco */
+  --color-silver-deep: #A8A8B8;    /* Plata profundo para sombras */
+
   --font-cinzel: var(--font-cinzel), serif;
   --font-montserrat: var(--font-montserrat), sans-serif;
   --font-alex: var(--font-alex), cursive;
@@ -324,6 +329,49 @@ input, textarea, select, .selectable-text {
 
 .animate-ray-flash {
   animation: rayFlash 4s infinite ease-in-out;
+}
+
+/* Shimmer de texto plateado: gradiente que se desliza sobre el texto */
+@keyframes silverTextShimmer {
+  0% {
+    background-position: -200% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.silver-shimmer-text {
+  background: linear-gradient(
+    110deg,
+    rgba(232, 232, 240, 0.55) 0%,
+    rgba(232, 232, 240, 0.55) 35%,
+    rgba(250, 250, 255, 1) 50%,
+    rgba(232, 232, 240, 0.55) 65%,
+    rgba(232, 232, 240, 0.55) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: silverTextShimmer 3.5s linear infinite;
+}
+
+/* Reflejo de luna: columna de luz descendente con leve ondulación */
+@keyframes moonReflection {
+  0%, 100% {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(-50%) scaleX(1.15);
+    opacity: 0.85;
+  }
+}
+
+.animate-moon-reflection {
+  animation: moonReflection 6s ease-in-out infinite;
 }
 
 /* Burbujas flotantes suaves con aparicion/desaparicion */
