@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, MessageSquare, AlertCircle, Shirt, Gift, Copy, Check, Info, Sparkles } from "lucide-react";
+import { CheckCircle2, Send, AlertCircle, Shirt, Gift, Copy, Check, Info, MessageCircle, Shell, Star, Waves } from "lucide-react";
 import confetti from "canvas-confetti";
 
 export default function RsvpAndInfoSection() {
@@ -100,11 +100,38 @@ export default function RsvpAndInfoSection() {
       {/* Marco decorativo */}
       <div className="absolute inset-8 border border-rose-gold/8 pointer-events-none rounded-sm" />
 
-      {/* Sparkles flotantes decorativos */}
-      <div className="absolute top-[12%] left-[8%] w-2 h-2 rounded-full animate-silver-twinkle pointer-events-none" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%)" }} />
-      <div className="absolute top-[18%] right-[12%] w-1.5 h-1.5 rounded-full animate-silver-twinkle pointer-events-none" style={{ animationDelay: "1s", background: "radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%)" }} />
-      <div className="absolute bottom-[20%] left-[15%] w-1 h-1 rounded-full animate-silver-twinkle pointer-events-none" style={{ animationDelay: "2s", background: "radial-gradient(circle, rgba(200,220,255,0.6) 0%, transparent 70%)" }} />
-      <div className="absolute bottom-[15%] right-[8%] w-2 h-2 rounded-full animate-silver-twinkle pointer-events-none" style={{ animationDelay: "0.5s", background: "radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%)" }} />
+      {/* Decoración marina - conchas, estrellas de mar y burbujas (sin lunas) */}
+      {/* Concha marina - esquina superior izquierda */}
+      <div className="absolute top-[10%] left-[6%] w-14 h-14 md:w-20 md:h-20 opacity-[0.07] pointer-events-none" aria-hidden="true">
+        <Shell className="w-full h-full text-rose-gold" strokeWidth={0.8} />
+      </div>
+
+      {/* Estrella de mar - esquina superior derecha */}
+      <div className="absolute top-[14%] right-[5%] w-12 h-12 md:w-16 md:h-16 opacity-[0.07] pointer-events-none" aria-hidden="true">
+        <Star className="w-full h-full text-rose-gold" strokeWidth={0.8} />
+      </div>
+
+      {/* Concha más pequeña - esquina inferior izquierda */}
+      <div className="absolute bottom-[18%] left-[4%] w-10 h-10 md:w-14 md:h-14 opacity-[0.06] pointer-events-none" aria-hidden="true">
+        <Shell className="w-full h-full text-rose-gold" strokeWidth={0.8} />
+      </div>
+
+      {/* Estrella de mar más pequeña - esquina inferior derecha */}
+      <div className="absolute bottom-[12%] right-[6%] w-10 h-10 md:w-14 md:h-14 opacity-[0.07] pointer-events-none" aria-hidden="true">
+        <Star className="w-full h-full text-rose-gold" strokeWidth={0.8} />
+      </div>
+
+      {/* Burbujas ascendentes decorativas en los costados */}
+      <div className="absolute bottom-[5%] left-[12%] w-2.5 h-2.5 rounded-full animate-bubble-rise pointer-events-none" style={{ background: "radial-gradient(circle at 30% 30%, rgba(200,220,255,0.6) 0%, rgba(100,149,237,0.25) 50%, rgba(60,90,150,0.05) 100%)", boxShadow: "inset -1px -1px 3px rgba(255,255,255,0.3), 0 0 6px rgba(100,149,237,0.3)" }} />
+      <div className="absolute bottom-[8%] left-[18%] w-1.5 h-1.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "0.8s", background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7) 0%, rgba(210,230,255,0.3) 50%, transparent 100%)", boxShadow: "0 0 5px rgba(255,255,255,0.3)" }} />
+      <div className="absolute bottom-[4%] right-[14%] w-2 h-2 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "1.4s", background: "radial-gradient(circle at 30% 30%, rgba(150,180,220,0.55) 0%, rgba(80,120,180,0.22) 50%, transparent 100%)", boxShadow: "inset -1px -1px 2px rgba(255,255,255,0.2), 0 0 5px rgba(150,180,220,0.25)" }} />
+      <div className="absolute bottom-[10%] right-[20%] w-1.5 h-1.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "0.4s", background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.6) 0%, rgba(192,192,200,0.2) 50%, transparent 100%)", boxShadow: "0 0 4px rgba(232,232,240,0.3)" }} />
+
+      {/* Sparkles plateados sutiles para el shimmer del título */}
+      <div className="absolute top-[24%] left-[14%] w-1 h-1 rounded-full bg-silver-shine/70 animate-silver-twinkle pointer-events-none" />
+      <div className="absolute top-[22%] right-[16%] w-1.5 h-1.5 rounded-full bg-silver-bright/50 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "0.7s" }} />
+      <div className="absolute top-[28%] left-[20%] w-0.5 h-0.5 rounded-full bg-silver-shine/60 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "1.4s" }} />
+      <div className="absolute top-[26%] right-[22%] w-1 h-1 rounded-full bg-silver-bright/60 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "2.1s" }} />
 
       {/* Título de la Sección */}
       <motion.div
@@ -114,15 +141,17 @@ export default function RsvpAndInfoSection() {
         transition={{ duration: 0.8 }}
         className="text-center mb-10 z-10 select-none max-w-lg"
       >
-        <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-rose-gold font-semibold mb-2 block">
-          Antes del Zarpe
-        </span>
-        <h2 className="font-cinzel text-3xl md:text-4xl text-slate-100 font-bold tracking-wide">
-          Confirmá tu Butaca
+        <h2
+          className="font-cinzel text-3xl md:text-4xl font-bold tracking-wide silver-shimmer-text"
+          style={{
+            textShadow: "0 0 12px rgba(232,232,240,0.5), 0 0 24px rgba(232,232,240,0.3), 0 0 40px rgba(255,255,255,0.15)",
+          }}
+        >
+          Marea de Confirmación
         </h2>
-        <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-rose-gold to-transparent my-4 mx-auto" />
+        <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-silver-bright/60 to-transparent my-4 mx-auto" />
         <p className="font-montserrat text-xs text-slate-400 font-light max-w-md mx-auto leading-relaxed mt-2 px-2">
-          Reservá tu lugar en la travesía y descubrí todo lo que necesitás saber para la noche más mágica del año.
+          Tu respuesta hace que la noche brille aún más. Confirmá tu lugar en la velada y descubrí los detalles del evento.
         </p>
       </motion.div>
 
@@ -145,11 +174,11 @@ export default function RsvpAndInfoSection() {
           {/* Header de la tarjeta RSVP */}
           <div className="flex items-center gap-3 mb-5 pb-4 border-b border-rose-gold/10">
             <div className="p-2.5 rounded-xl bg-rose-gold/10 border border-rose-gold/25 text-rose-gold shadow-[0_0_15px_rgba(212,163,115,0.15)]">
-              <Sparkles className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4" />
             </div>
             <div>
               <h3 className="font-cinzel text-base md:text-lg text-slate-100 font-bold tracking-wide">
-                ¿Nos acompañás?
+                ¿Te sumás a la noche?
               </h3>
               <p className="font-montserrat text-[10px] text-slate-500 mt-0.5">
                 Antes del 15 de Octubre
@@ -280,23 +309,51 @@ export default function RsvpAndInfoSection() {
                 type="submit"
                 className="w-full h-13 py-3.5 bg-gradient-to-r from-rose-gold-dark to-rose-gold hover:brightness-110 text-navy-dark font-montserrat text-xs uppercase tracking-[0.2em] font-bold rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98] outline-none shadow-lg shadow-rose-gold/15 min-h-[44px] cursor-pointer"
               >
-                <MessageSquare className="w-4 h-4" />
-                Confirmar por WhatsApp
+                <Send className="w-4 h-4" />
+                Enviar mi Confirmación
               </button>
             </form>
           ) : (
-            <div className="text-center py-6 space-y-4 select-none">
-              <div className="inline-flex p-3.5 rounded-full bg-rose-gold/10 border border-rose-gold/30 text-rose-gold mb-2 animate-bounce">
-                <CheckCircle2 className="w-8 h-8" />
+            <div className="text-center py-6 space-y-4 select-none relative">
+              {/* Ondas expansivas del splash */}
+              <div className="relative inline-flex items-center justify-center">
+                <motion.div
+                  className="absolute w-16 h-16 rounded-full border-2 border-rose-gold/30"
+                  initial={{ scale: 0, opacity: 0.8 }}
+                  animate={{ scale: 2.5, opacity: 0 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                />
+                <motion.div
+                  className="absolute w-16 h-16 rounded-full border-2 border-sea-glow/30"
+                  initial={{ scale: 0, opacity: 0.6 }}
+                  animate={{ scale: 3, opacity: 0 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+                />
+                <motion.div
+                  className="absolute w-16 h-16 rounded-full border-2 border-silver-bright/20"
+                  initial={{ scale: 0, opacity: 0.5 }}
+                  animate={{ scale: 3.5, opacity: 0 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 1 }}
+                />
+                <div className="relative inline-flex p-3.5 rounded-full bg-rose-gold/10 border border-rose-gold/30 text-rose-gold">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
               </div>
-              <h3 className="font-cinzel text-xl text-slate-100 font-semibold tracking-wide">
-                ¡Confirmación Preparada!
+
+              {/* Burbujas que suben del splash */}
+              <div className="absolute left-[20%] bottom-[35%] w-2 h-2 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "0s", background: "radial-gradient(circle at 30% 30%, rgba(200,220,255,0.7) 0%, rgba(100,149,237,0.3) 50%, transparent 100%)", boxShadow: "0 0 5px rgba(100,149,237,0.4)" }} />
+              <div className="absolute left-[25%] bottom-[40%] w-1.5 h-1.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "0.4s", background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7) 0%, rgba(210,230,255,0.3) 50%, transparent 100%)", boxShadow: "0 0 4px rgba(255,255,255,0.3)" }} />
+              <div className="absolute right-[22%] bottom-[38%] w-2 h-2 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "0.7s", background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.6) 0%, transparent 100%)", boxShadow: "0 0 5px rgba(232,232,240,0.3)" }} />
+              <div className="absolute right-[28%] bottom-[42%] w-1.5 h-1.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "1.1s", background: "radial-gradient(circle at 30% 30%, rgba(150,180,220,0.6) 0%, transparent 100%)", boxShadow: "0 0 4px rgba(150,180,220,0.3)" }} />
+
+              <h3 className="font-cinzel text-xl text-slate-100 font-semibold tracking-wide relative z-10">
+                ¡Tu mensaje navega hacia Marina!
               </h3>
-              <p className="font-montserrat text-xs text-slate-400 font-light max-w-xs mx-auto leading-relaxed">
-                Te estamos redirigiendo a WhatsApp para enviar el mensaje a Marina...
+              <p className="font-montserrat text-xs text-slate-400 font-light max-w-xs mx-auto leading-relaxed relative z-10">
+                Te estamos redirigiendo a WhatsApp para enviar la confirmación...
               </p>
-              <div className="w-24 h-1 bg-slate-800 rounded-full mx-auto overflow-hidden mt-6">
-                <div className="h-full bg-rose-gold animate-[shimmer_1.5s_infinite]" style={{ width: "100%" }} />
+              <div className="w-24 h-1 bg-slate-800 rounded-full mx-auto overflow-hidden mt-6 relative z-10">
+                <div className="h-full bg-gradient-to-r from-rose-gold via-sea-glow to-rose-gold animate-[shimmer_1.5s_infinite]" style={{ width: "100%" }} />
               </div>
             </div>
           )}
@@ -317,12 +374,17 @@ export default function RsvpAndInfoSection() {
             <div className="absolute bottom-2.5 left-2.5 w-3 h-3 border-b border-l border-rose-gold/20" />
             <div className="absolute bottom-2.5 right-2.5 w-3 h-3 border-b border-r border-rose-gold/20" />
 
+            {/* Concha decorativa en la esquina */}
+            <div className="absolute top-2 right-2 w-7 h-7 opacity-[0.12] pointer-events-none" aria-hidden="true">
+              <Shell className="w-full h-full text-rose-gold" strokeWidth={1.2} />
+            </div>
+
             <div className="p-3 rounded-xl bg-navy-dark/60 border border-rose-gold/20 text-rose-gold mb-3 group-hover:scale-105 transition-transform duration-300 shadow-[0_0_15px_rgba(212,163,115,0.1)]">
               <Shirt className="w-5 h-5" />
             </div>
 
             <h3 className="font-cinzel text-base md:text-lg text-slate-100 font-semibold tracking-wide mb-2">
-              Código de Vestimenta
+              Tu Atuendo
             </h3>
 
             <span className="text-[9px] font-semibold uppercase tracking-widest text-rose-gold bg-rose-gold/10 border border-rose-gold/25 px-3.5 py-1 rounded-full mb-3">
@@ -330,7 +392,7 @@ export default function RsvpAndInfoSection() {
             </span>
 
             <p className="font-montserrat text-[11px] md:text-xs text-slate-400 font-light leading-relaxed px-1">
-              Vamos a brillar juntos. Sugerimos vestimenta formal. <span className="text-slate-300">Varones: traje y camisa. Mujeres: vestido elegante.</span>
+              Vamos a brillar bajo la luna. Sugerimos vestimenta formal. <span className="text-slate-300">Varones: traje y camisa. Mujeres: vestido elegante.</span>
             </p>
           </motion.div>
 
@@ -347,13 +409,18 @@ export default function RsvpAndInfoSection() {
             <div className="absolute bottom-2.5 left-2.5 w-3 h-3 border-b border-l border-rose-gold/20" />
             <div className="absolute bottom-2.5 right-2.5 w-3 h-3 border-b border-r border-rose-gold/20" />
 
+            {/* Olas decorativas en la esquina */}
+            <div className="absolute top-2 right-2 w-7 h-7 opacity-[0.18] pointer-events-none" aria-hidden="true">
+              <Waves className="w-full h-full text-rose-gold" strokeWidth={1.2} />
+            </div>
+
             <div className="flex items-center gap-3 mb-3">
               <div className="p-3 rounded-xl bg-navy-dark/60 border border-rose-gold/20 text-rose-gold shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-[0_0_15px_rgba(212,163,115,0.1)]">
                 <Gift className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="font-cinzel text-base md:text-lg text-slate-100 font-semibold tracking-wide">
-                  Mesa de Regalos
+                  Tu Obsequio
                 </h3>
                 <p className="font-montserrat text-[10px] text-slate-500 mt-0.5">
                   Tu cariño es lo más importante
