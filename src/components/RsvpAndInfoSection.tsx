@@ -90,7 +90,7 @@ export default function RsvpAndInfoSection() {
     >
       {/* Número de sección */}
       <div className="absolute top-4 left-4 z-50 bg-rose-gold/20 border border-rose-gold/40 rounded-full w-8 h-8 flex items-center justify-center">
-        <span className="font-cinzel text-xs text-rose-gold font-bold">4</span>
+        <span className="font-cinzel text-xs text-rose-gold font-bold">3</span>
       </div>
 
       {/* Luces radiales del fondo */}
