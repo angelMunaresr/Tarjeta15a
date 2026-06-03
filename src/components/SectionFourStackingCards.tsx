@@ -8,8 +8,9 @@ interface StackingCardData {
   numeral: string;
   title: string;
   caption: string;
-  bgClass: string;
-  numeralColorClass: string;
+  bgGradient: string;
+  numeralColor: string;
+  accentGlow: string;
 }
 
 const CARDS: StackingCardData[] = [
@@ -18,61 +19,61 @@ const CARDS: StackingCardData[] = [
     numeral: "I",
     title: "El Comienzo",
     caption: "Mis primeros sueños.",
-    bgClass: "bg-sea-glow",
-    numeralColorClass: "text-navy-dark/25",
+    bgGradient: "linear-gradient(135deg, #00e5ff 0%, #00b0d4 40%, #007c91 100%)",
+    numeralColor: "rgba(0, 30, 50, 0.18)",
+    accentGlow: "rgba(0, 229, 255, 0.15)",
   },
   {
     id: 2,
     numeral: "II",
     title: "Familia",
     caption: "Mi mayor tesoro.",
-    bgClass: "bg-sea-soft",
-    numeralColorClass: "text-navy-dark/25",
+    bgGradient: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 40%, #0369a1 100%)",
+    numeralColor: "rgba(0, 20, 60, 0.18)",
+    accentGlow: "rgba(14, 165, 233, 0.15)",
   },
   {
     id: 3,
     numeral: "III",
     title: "Amistad",
     caption: "Las que siempre están.",
-    bgClass: "bg-rose-gold",
-    numeralColorClass: "text-navy-dark/25",
+    bgGradient: "linear-gradient(135deg, #D4A373 0%, #c4956a 40%, #A6734E 100%)",
+    numeralColor: "rgba(50, 20, 0, 0.18)",
+    accentGlow: "rgba(212, 163, 115, 0.15)",
   },
   {
     id: 4,
     numeral: "IV",
     title: "Mar",
     caption: "La costa que me inspira.",
-    bgClass: "bg-sand-gold",
-    numeralColorClass: "text-navy-dark/30",
+    bgGradient: "linear-gradient(135deg, #C9A961 0%, #b89a55 40%, #a08840 100%)",
+    numeralColor: "rgba(40, 30, 0, 0.2)",
+    accentGlow: "rgba(201, 169, 97, 0.15)",
   },
   {
     id: 5,
     numeral: "V",
     title: "La Gran Noche",
     caption: "Casi estamos…",
-    bgClass: "bg-silver-bright",
-    numeralColorClass: "text-navy-dark/25",
+    bgGradient: "linear-gradient(135deg, #E8E8F0 0%, #d0d0e0 40%, #b8b8c8 100%)",
+    numeralColor: "rgba(20, 20, 40, 0.15)",
+    accentGlow: "rgba(232, 232, 240, 0.15)",
   },
 ];
 
-export default function SectionFourStackingCards() {
-  const stackContainerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: stackContainerRef,
-    offset: ["start start", "end end"],
-  });
+/* Offset top (in px) that each card stacks below the previous one. */
+const CARD_TOP_OFFSET = 16;
 
+export default function SectionFourStackingCards() {
   return (
-    <section
-      className="relative w-full bg-gradient-to-b from-navy-dark via-navy-abyss to-navy-dark"
-    >
+    <section className="relative w-full bg-gradient-to-b from-navy-dark via-navy-abyss to-navy-dark">
       {/* Badge de sección "4" */}
       <div className="absolute top-4 left-4 z-50 bg-rose-gold/20 border border-rose-gold/40 rounded-full w-8 h-8 flex items-center justify-center">
         <span className="font-cinzel text-xs text-rose-gold font-bold">4</span>
       </div>
 
       {/* Header */}
-      <div className="relative z-10 px-6 pt-20 pb-12 text-center max-w-2xl mx-auto">
+      <div className="relative z-10 px-6 pt-20 pb-4 text-center max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -82,37 +83,37 @@ export default function SectionFourStackingCards() {
           <h2
             className="font-cinzel text-3xl md:text-5xl font-bold tracking-wide silver-shimmer-text"
             style={{
-              textShadow: "0 0 12px rgba(232,232,240,0.5), 0 0 24px rgba(232,232,240,0.3), 0 0 40px rgba(255,255,255,0.15)",
+              textShadow:
+                "0 0 12px rgba(232,232,240,0.5), 0 0 24px rgba(232,232,240,0.3), 0 0 40px rgba(255,255,255,0.15)",
             }}
           >
             Mis Recuerdos
           </h2>
           <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-silver-bright/60 to-transparent my-4 mx-auto" />
           <p className="font-montserrat text-xs md:text-sm text-slate-400 font-light leading-relaxed mt-2 px-2 max-w-md mx-auto">
-            Cinco instantes guardados con el corazón. Deslizá para descubrirlos uno a uno, como olas que llegan a la orilla.
+            Cinco instantes guardados con el corazón. Deslizá para descubrirlos
+            uno a uno, como olas que llegan a la orilla.
           </p>
         </motion.div>
       </div>
 
-      {/* Contenedor de scroll-stacking: alto = 5 viewports (uno por card) */}
-      <div
-        ref={stackContainerRef}
-        className="relative w-full"
-        style={{ height: `${CARDS.length * 100}vh` }}
-      >
-        {/* Sticky único que sostiene las 5 cards; cada card anima su y desde 100vh hasta 0
-            a medida que se scrollea, apilandose por z-index creciente. */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
-          {CARDS.map((card, index) => (
-            <StackingCard
-              key={card.id}
-              card={card}
-              index={index}
-              total={CARDS.length}
-              scrollYProgress={scrollYProgress}
-            />
-          ))}
-        </div>
+      {/* ────────────────────────────────────────────────────────────────
+          STACKING CARDS CONTAINER
+
+          Each card lives inside its own scroll-height wrapper.
+          The card itself is `position: sticky` with an increasing `top`
+          value so they pile up as you scroll. When the next card arrives,
+          the previous card scales down slightly to create depth.
+      ──────────────────────────────────────────────────────────────── */}
+      <div className="relative w-full">
+        {CARDS.map((card, index) => (
+          <StackingCardWrapper
+            key={card.id}
+            card={card}
+            index={index}
+            total={CARDS.length}
+          />
+        ))}
       </div>
 
       {/* Footer / Cierre */}
@@ -125,7 +126,10 @@ export default function SectionFourStackingCards() {
         >
           <p
             className="font-pinyon text-4xl md:text-5xl silver-shimmer-text mb-3"
-            style={{ textShadow: "0 0 30px rgba(232,232,240,0.3), 0 0 60px rgba(212,163,115,0.15)" }}
+            style={{
+              textShadow:
+                "0 0 30px rgba(232,232,240,0.3), 0 0 60px rgba(212,163,115,0.15)",
+            }}
           >
             Tu presencia
           </p>
@@ -142,60 +146,100 @@ export default function SectionFourStackingCards() {
   );
 }
 
-function StackingCard({
+/* ─── Per-card wrapper ─────────────────────────────────────────── */
+
+function StackingCardWrapper({
   card,
   index,
   total,
-  scrollYProgress,
 }: {
   card: StackingCardData;
   index: number;
   total: number;
-  scrollYProgress: MotionValue<number>;
 }) {
-  const start = index / total;
-  const end = (index + 1) / total;
-  const isBaseCard = index === 0;
-  const scrollRange: [number, number] = isBaseCard ? [0, 0.0001] : [start, end];
-  const yRange: [string, string] = isBaseCard ? ["0px", "0px"] : ["100vh", "0px"];
-  const opacityRange: [number, number] = isBaseCard ? [1, 1] : [0, 1];
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const y = useTransform(scrollYProgress, scrollRange, yRange);
-  const opacity = useTransform(scrollYProgress, scrollRange, opacityRange);
+  /* Track how far this wrapper has scrolled through the viewport.
+     0 = wrapper top just hit viewport bottom
+     1 = wrapper bottom just left viewport top */
+  const { scrollYProgress } = useScroll({
+    target: wrapperRef,
+    offset: ["start start", "end start"],
+  });
+
+  /* Scale shrinks from 1 → 0.92 as the NEXT card scrolls over this one */
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+
+  /* Slight brightness dim when buried in the stack */
+  const brightness = useTransform(scrollYProgress, [0, 1], [1, 0.6]);
+  const filter = useTransform(brightness, (v: number) => `brightness(${v})`);
+
+  const stickyTop = index * CARD_TOP_OFFSET;
+
+  /* last card: no need for extra scroll height since nothing stacks on it */
+  const isLast = index === total - 1;
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
+    <div
+      ref={wrapperRef}
+      className="relative w-full"
+      style={{
+        height: isLast ? "auto" : "100vh",
+      }}
+    >
       <motion.div
-        className="relative flex flex-col items-center"
+        className="sticky w-full flex flex-col items-center"
         style={{
-          y,
-          opacity,
+          top: stickyTop,
           zIndex: 10 + index,
+          scale,
+          filter,
+          transformOrigin: "center top",
         }}
       >
-        {/* Card: rectángulo limpio de color sólido con numeral grande */}
-        <div
-          className={`relative aspect-[3/4] w-[min(360px,88vw)] rounded-xl shadow-2xl ${card.bgClass} flex items-center justify-center overflow-hidden`}
-        >
-          <span
-            className={`font-cinzel font-bold leading-none select-none ${card.numeralColorClass} text-[180px] md:text-[220px]`}
-            aria-hidden="true"
+        {/* ---------- Card visual ---------- */}
+        <div className="px-4 pt-2 pb-4 w-full flex flex-col items-center">
+          <div
+            className="relative aspect-[3/4] w-[min(360px,88vw)] rounded-2xl shadow-2xl overflow-hidden flex items-center justify-center"
+            style={{
+              background: card.bgGradient,
+              boxShadow: `0 8px 40px ${card.accentGlow}, 0 2px 20px rgba(0,0,0,0.4)`,
+            }}
           >
-            {card.numeral}
-          </span>
-        </div>
+            {/* Large numeral watermark */}
+            <span
+              className="font-cinzel font-bold leading-none select-none"
+              style={{
+                color: card.numeralColor,
+                fontSize: "clamp(140px, 30vw, 220px)",
+              }}
+              aria-hidden="true"
+            >
+              {card.numeral}
+            </span>
 
-        {/* Título + caption debajo */}
-        <div className="mt-5 text-center max-w-[min(360px,88vw)]">
-          <h3
-            className="font-pinyon text-2xl md:text-3xl text-rose-gold-light leading-none mb-1"
-            style={{ textShadow: "0 0 18px rgba(243,229,216,0.25)" }}
-          >
-            {card.title}
-          </h3>
-          <p className="font-montserrat text-[11px] md:text-xs text-slate-400 font-light leading-tight px-1">
-            {card.caption}
-          </p>
+            {/* Subtle inner light */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.15) 0%, transparent 60%)",
+              }}
+            />
+          </div>
+
+          {/* Title + caption below card */}
+          <div className="mt-5 text-center max-w-[min(360px,88vw)]">
+            <h3
+              className="font-pinyon text-2xl md:text-3xl text-rose-gold-light leading-none mb-1"
+              style={{ textShadow: "0 0 18px rgba(243,229,216,0.25)" }}
+            >
+              {card.title}
+            </h3>
+            <p className="font-montserrat text-[11px] md:text-xs text-slate-400 font-light leading-tight px-1">
+              {card.caption}
+            </p>
+          </div>
         </div>
       </motion.div>
     </div>
