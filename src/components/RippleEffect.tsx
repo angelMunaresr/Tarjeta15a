@@ -122,8 +122,13 @@ export default function RippleEffect() {
       }
     };
 
-    const handlePointerDown = (e: PointerEvent) => {
-      const bubbleCount = 6 + Math.floor(Math.random() * 4);
+    const handleInteraction = (e: MouseEvent) => {
+      const isMobile = window.innerWidth < 768;
+      
+      // En celular creamos muchas menos burbujas para no saturar
+      const baseCount = isMobile ? 2 : 6;
+      const randCount = isMobile ? 2 : 4;
+      const bubbleCount = baseCount + Math.floor(Math.random() * randCount);
 
       for (let i = 0; i < bubbleCount; i++) {
         const offsetX = (Math.random() - 0.5) * 60;
@@ -132,7 +137,7 @@ export default function RippleEffect() {
         bubblesRef.current.push({
           x: e.clientX + offsetX,
           y: e.clientY + offsetY,
-          radius: 4 + Math.random() * 12,
+          radius: (isMobile ? 3 : 4) + Math.random() * (isMobile ? 8 : 12),
           opacity: 0.6 + Math.random() * 0.4,
           speedX: (Math.random() - 0.5) * 1.5,
           speedY: -1.5 - Math.random() * 2,
@@ -141,21 +146,26 @@ export default function RippleEffect() {
         });
       }
 
-      if (bubblesRef.current.length > 50) {
-        bubblesRef.current = bubblesRef.current.slice(-50);
+      // Límite más estricto de burbujas en pantalla para móviles
+      const maxBubbles = isMobile ? 12 : 50;
+      if (bubblesRef.current.length > maxBubbles) {
+        bubblesRef.current = bubblesRef.current.slice(-maxBubbles);
       }
 
       // Wake up the animation loop
       startLoop();
     };
 
-    window.addEventListener("pointerdown", handlePointerDown);
+    // Usar 'click' en lugar de 'pointerdown'. 
+    // pointerdown se dispara al iniciar un scroll en móvil, lo que genera burbujas indeseadas y lag.
+    // click solo se dispara al hacer un "tap" intencional (sin deslizar).
+    window.addEventListener("click", handleInteraction);
 
     return () => {
       cancelAnimationFrame(animationRef.current);
       clearTimeout(resizeTimer);
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("click", handleInteraction);
     };
   }, []);
 
