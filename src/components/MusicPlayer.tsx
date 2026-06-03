@@ -67,9 +67,9 @@ export default function MusicPlayer() {
           {isPlaying ? (
             // Icono ecualizador animado simple
             <div className="flex gap-[2.5px] items-end h-3.5 w-4 justify-center">
-              <span className="w-[3px] bg-rose-gold rounded-full animate-[equalizer_0.8s_infinite_ease-in-out_alternate]" style={{ animationDelay: "0.1s" }} />
-              <span className="w-[3px] bg-rose-gold rounded-full animate-[equalizer_0.6s_infinite_ease-in-out_alternate]" style={{ animationDelay: "0.3s" }} />
-              <span className="w-[3px] bg-rose-gold rounded-full animate-[equalizer_0.9s_infinite_ease-in-out_alternate]" style={{ animationDelay: "0.5s" }} />
+              <span className="w-[3px] h-4 bg-rose-gold rounded-full origin-bottom animate-[equalizer_0.8s_infinite_ease-in-out_alternate]" style={{ animationDelay: "0.1s" }} />
+              <span className="w-[3px] h-4 bg-rose-gold rounded-full origin-bottom animate-[equalizer_0.6s_infinite_ease-in-out_alternate]" style={{ animationDelay: "0.3s" }} />
+              <span className="w-[3px] h-4 bg-rose-gold rounded-full origin-bottom animate-[equalizer_0.9s_infinite_ease-in-out_alternate]" style={{ animationDelay: "0.5s" }} />
             </div>
           ) : (
             <Music className="w-5 h-5" />
@@ -82,14 +82,14 @@ export default function MusicPlayer() {
         ref={audioRef}
         src={audioUrl}
         loop
-        preload="auto"
+        preload="none"
       />
 
       {/* Estilo CSS inyectado localmente para el ecualizador */}
       <style jsx global>{`
         @keyframes equalizer {
-          0% { height: 4px; }
-          100% { height: 16px; }
+          0% { transform: scaleY(0.25); }
+          100% { transform: scaleY(1); }
         }
       `}</style>
     </div>

@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+/* ─── Card data ──────────────────────────────────────────────── */
 
 interface StackingCardData {
   id: number;
@@ -19,7 +21,8 @@ const CARDS: StackingCardData[] = [
     numeral: "I",
     title: "El Comienzo",
     caption: "Mis primeros sueños.",
-    bgGradient: "linear-gradient(135deg, #00e5ff 0%, #00b0d4 40%, #007c91 100%)",
+    bgGradient:
+      "linear-gradient(135deg, #00e5ff 0%, #00b0d4 40%, #007c91 100%)",
     numeralColor: "rgba(0, 30, 50, 0.18)",
     accentGlow: "rgba(0, 229, 255, 0.15)",
   },
@@ -28,7 +31,8 @@ const CARDS: StackingCardData[] = [
     numeral: "II",
     title: "Familia",
     caption: "Mi mayor tesoro.",
-    bgGradient: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 40%, #0369a1 100%)",
+    bgGradient:
+      "linear-gradient(135deg, #0ea5e9 0%, #0284c7 40%, #0369a1 100%)",
     numeralColor: "rgba(0, 20, 60, 0.18)",
     accentGlow: "rgba(14, 165, 233, 0.15)",
   },
@@ -37,7 +41,8 @@ const CARDS: StackingCardData[] = [
     numeral: "III",
     title: "Amistad",
     caption: "Las que siempre están.",
-    bgGradient: "linear-gradient(135deg, #D4A373 0%, #c4956a 40%, #A6734E 100%)",
+    bgGradient:
+      "linear-gradient(135deg, #D4A373 0%, #c4956a 40%, #A6734E 100%)",
     numeralColor: "rgba(50, 20, 0, 0.18)",
     accentGlow: "rgba(212, 163, 115, 0.15)",
   },
@@ -46,7 +51,8 @@ const CARDS: StackingCardData[] = [
     numeral: "IV",
     title: "Mar",
     caption: "La costa que me inspira.",
-    bgGradient: "linear-gradient(135deg, #C9A961 0%, #b89a55 40%, #a08840 100%)",
+    bgGradient:
+      "linear-gradient(135deg, #C9A961 0%, #b89a55 40%, #a08840 100%)",
     numeralColor: "rgba(40, 30, 0, 0.2)",
     accentGlow: "rgba(201, 169, 97, 0.15)",
   },
@@ -55,14 +61,20 @@ const CARDS: StackingCardData[] = [
     numeral: "V",
     title: "La Gran Noche",
     caption: "Casi estamos…",
-    bgGradient: "linear-gradient(135deg, #E8E8F0 0%, #d0d0e0 40%, #b8b8c8 100%)",
+    bgGradient:
+      "linear-gradient(135deg, #E8E8F0 0%, #d0d0e0 40%, #b8b8c8 100%)",
     numeralColor: "rgba(20, 20, 40, 0.15)",
     accentGlow: "rgba(232, 232, 240, 0.15)",
   },
 ];
 
-/* Offset top (in px) that each card stacks below the previous one. */
-const CARD_TOP_OFFSET = 16;
+/*
+ * Offset (px) between each stacked card's sticky-top.
+ * Kept small so they don't eat into the limited mobile viewport.
+ */
+const CARD_TOP_OFFSET = 12;
+
+/* ─── Section root ───────────────────────────────────────────── */
 
 export default function SectionFourStackingCards() {
   return (
@@ -97,15 +109,12 @@ export default function SectionFourStackingCards() {
         </motion.div>
       </div>
 
-      {/* ────────────────────────────────────────────────────────────────
-          STACKING CARDS CONTAINER
-
-          Each card lives inside its own scroll-height wrapper.
-          The card itself is `position: sticky` with an increasing `top`
-          value so they pile up as you scroll. When the next card arrives,
-          the previous card scales down slightly to create depth.
-      ──────────────────────────────────────────────────────────────── */}
-      <div className="relative w-full">
+      {/* ── Stacking cards ─────────────────────────────────────────
+          Each card wrapper provides scroll-height.
+          The card itself is position:sticky with increasing top,
+          so cards pile up as the user scrolls.
+      ─────────────────────────────────────────────────────────── */}
+      <div className="stacking-cards-container relative w-full">
         {CARDS.map((card, index) => (
           <StackingCardWrapper
             key={card.id}
@@ -117,7 +126,7 @@ export default function SectionFourStackingCards() {
       </div>
 
       {/* Footer / Cierre */}
-      <div className="relative z-10 px-6 py-20 text-center max-w-md mx-auto">
+      <div className="relative z-10 px-6 py-16 md:py-20 text-center max-w-md mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -159,32 +168,37 @@ function StackingCardWrapper({
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  /* Track how far this wrapper has scrolled through the viewport.
-     0 = wrapper top just hit viewport bottom
-     1 = wrapper bottom just left viewport top */
+  /*
+   * scrollYProgress goes 0 → 1 as the wrapper scrolls from
+   * "its top hits the viewport top" to "its bottom hits the viewport top".
+   * This drives the scale-down + dim of the current card while the
+   * next card slides over it.
+   */
   const { scrollYProgress } = useScroll({
     target: wrapperRef,
     offset: ["start start", "end start"],
   });
 
-  /* Scale shrinks from 1 → 0.92 as the NEXT card scrolls over this one */
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+  /* Scale: 1 → 0.93 as the next card covers this one */
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.93]);
 
-  /* Slight brightness dim when buried in the stack */
-  const brightness = useTransform(scrollYProgress, [0, 1], [1, 0.6]);
-  const filter = useTransform(brightness, (v: number) => `brightness(${v})`);
+  /* Opacity dims so buried cards look further away (GPU-compositable) */
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.55]);
 
   const stickyTop = index * CARD_TOP_OFFSET;
-
-  /* last card: no need for extra scroll height since nothing stacks on it */
   const isLast = index === total - 1;
 
   return (
     <div
       ref={wrapperRef}
-      className="relative w-full"
+      className="stacking-card-wrapper relative w-full"
       style={{
-        height: isLast ? "auto" : "100vh",
+        /*
+         * Use dynamic viewport height (dvh) so mobile browsers with
+         * collapsible URL bars are handled properly.
+         * The last card doesn't need extra scroll runway.
+         */
+        height: isLast ? "auto" : "100dvh",
       }}
     >
       <motion.div
@@ -193,14 +207,23 @@ function StackingCardWrapper({
           top: stickyTop,
           zIndex: 10 + index,
           scale,
-          filter,
+          opacity,
           transformOrigin: "center top",
         }}
       >
-        {/* ---------- Card visual ---------- */}
-        <div className="px-4 pt-2 pb-4 w-full flex flex-col items-center">
+        {/*
+         * Card + text are wrapped in a single flex column that is
+         * sized to fit inside the real visible viewport minus the
+         * accumulated sticky offset of stacked cards below it.
+         *
+         * On mobile: card uses aspect-ratio via max-height so it
+         * never overflows the screen. Title/caption overlay the
+         * card bottom to save vertical space.
+         */}
+        <div className="stacking-card-content w-full flex flex-col items-center justify-center px-4 py-3">
+          {/* ── The card rectangle ── */}
           <div
-            className="relative aspect-[3/4] w-[min(360px,88vw)] rounded-2xl shadow-2xl overflow-hidden flex items-center justify-center"
+            className="stacking-card-visual relative rounded-2xl shadow-2xl overflow-hidden flex items-center justify-center"
             style={{
               background: card.bgGradient,
               boxShadow: `0 8px 40px ${card.accentGlow}, 0 2px 20px rgba(0,0,0,0.4)`,
@@ -208,17 +231,14 @@ function StackingCardWrapper({
           >
             {/* Large numeral watermark */}
             <span
-              className="font-cinzel font-bold leading-none select-none"
-              style={{
-                color: card.numeralColor,
-                fontSize: "clamp(140px, 30vw, 220px)",
-              }}
+              className="stacking-card-numeral font-cinzel font-bold leading-none select-none"
+              style={{ color: card.numeralColor }}
               aria-hidden="true"
             >
               {card.numeral}
             </span>
 
-            {/* Subtle inner light */}
+            {/* Subtle inner light reflection */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
@@ -226,19 +246,22 @@ function StackingCardWrapper({
                   "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.15) 0%, transparent 60%)",
               }}
             />
-          </div>
 
-          {/* Title + caption below card */}
-          <div className="mt-5 text-center max-w-[min(360px,88vw)]">
-            <h3
-              className="font-pinyon text-2xl md:text-3xl text-rose-gold-light leading-none mb-1"
-              style={{ textShadow: "0 0 18px rgba(243,229,216,0.25)" }}
-            >
-              {card.title}
-            </h3>
-            <p className="font-montserrat text-[11px] md:text-xs text-slate-400 font-light leading-tight px-1">
-              {card.caption}
-            </p>
+            {/* ── Title + caption: overlaid at the card bottom ── */}
+            <div className="absolute bottom-0 inset-x-0 px-4 pb-4 pt-12 text-center bg-gradient-to-t from-black/40 via-black/15 to-transparent">
+              <h3
+                className="font-pinyon text-2xl md:text-3xl text-white leading-none mb-1 drop-shadow-lg"
+                style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}
+              >
+                {card.title}
+              </h3>
+              <p
+                className="font-montserrat text-[11px] md:text-xs text-white/80 font-light leading-tight"
+                style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
+              >
+                {card.caption}
+              </p>
+            </div>
           </div>
         </div>
       </motion.div>

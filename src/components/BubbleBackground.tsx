@@ -31,7 +31,7 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
     let height = (canvas.height = window.innerHeight);
 
     const isMobile = width < 768;
-    const starCount = isMobile ? 100 : 180;
+    const starCount = isMobile ? 70 : 180;
 
     const createStar = (): Star => ({
       x: Math.random() * width,
@@ -47,14 +47,34 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
       stars = Array.from({ length: starCount }, createStar);
     };
 
+    // Debounced resize handler
+    let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      init();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        // Recreate pre-computed gradients after resize
+        baseGrad = createBaseGradient();
+        init();
+      }, 200);
     };
 
     window.addEventListener("resize", handleResize);
     init();
+
+    // Pre-compute static gradients (created once, reused every frame)
+    let baseGrad: CanvasGradient;
+    const createBaseGradient = () => {
+      const g = ctx.createLinearGradient(0, 0, 0, height);
+      g.addColorStop(0, "#00040a");
+      g.addColorStop(0.35, "#020614");
+      g.addColorStop(0.65, "#060E1E");
+      g.addColorStop(0.88, "#001220");
+      g.addColorStop(1, "#000810");
+      return g;
+    };
+    baseGrad = createBaseGradient();
 
     const drawMoon = () => {
       const moonX = width * 0.82;
@@ -103,13 +123,15 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
       ctx.fillStyle = reflectionGradient;
       ctx.fillRect(0, reflectionY, width, height - reflectionY);
 
+      // Use larger step on mobile to reduce sin() calculations
+      const step = isMobile ? 10 : 5;
       ctx.strokeStyle = "rgba(245, 235, 210, 0.03)";
       ctx.lineWidth = 1;
       for (let i = 0; i < 4; i++) {
         const waveOffset = timeRef.current * 0.0004;
         ctx.beginPath();
         ctx.moveTo(0, reflectionY + i * 14);
-        for (let x = 0; x < width; x += 5) {
+        for (let x = 0; x < width; x += step) {
           const y = reflectionY + i * 14 + Math.sin((x * 0.01) + waveOffset + i * 0.5) * 3;
           ctx.lineTo(x, y);
         }
@@ -120,12 +142,7 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
     const animate = () => {
       timeRef.current += 16;
 
-      const baseGrad = ctx.createLinearGradient(0, 0, 0, height);
-      baseGrad.addColorStop(0, "#00040a");
-      baseGrad.addColorStop(0.35, "#020614");
-      baseGrad.addColorStop(0.65, "#060E1E");
-      baseGrad.addColorStop(0.88, "#001220");
-      baseGrad.addColorStop(1, "#000810");
+      // Use pre-computed gradient instead of creating new one every frame
       ctx.fillStyle = baseGrad;
       ctx.fillRect(0, 0, width, height);
 
@@ -161,9 +178,13 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      clearTimeout(resizeTimer);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Don't render the canvas element at all when excluded
+  if (excludeSection1) return null;
 
   return (
     <canvas

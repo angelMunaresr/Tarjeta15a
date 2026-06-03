@@ -40,7 +40,7 @@ export default function BubbleRise() {
     let height = (canvas.height = window.innerHeight);
 
     const isMobile = width < 768;
-    const bubbleCount = isMobile ? 28 : 48;
+    const bubbleCount = isMobile ? 18 : 48;
 
     const randomColor = () => THEME_COLORS[Math.floor(Math.random() * THEME_COLORS.length)];
 
@@ -63,14 +63,33 @@ export default function BubbleRise() {
       bubbles = Array.from({ length: bubbleCount }, () => createBubble(false));
     };
 
+    // Debounced resize handler
+    let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      init();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        bgGrad = createBgGradient();
+        init();
+      }, 200);
     };
 
     window.addEventListener("resize", handleResize);
     init();
+
+    // Pre-compute background gradient
+    let bgGrad: CanvasGradient;
+    const createBgGradient = () => {
+      const g = ctx.createLinearGradient(0, 0, 0, height);
+      g.addColorStop(0,    "#00040a");
+      g.addColorStop(0.35, "#020614");
+      g.addColorStop(0.65, "#060E1E");
+      g.addColorStop(0.88, "#001220");
+      g.addColorStop(1,    "#000810");
+      return g;
+    };
+    bgGrad = createBgGradient();
 
     const drawBubble = (b: Bubble) => {
       // Contorno de la burbuja
@@ -110,30 +129,26 @@ export default function BubbleRise() {
       ctx.fillStyle = hlGrad;
       ctx.fill();
 
-      // Brillo secundario pequeño (parte inferior derecha)
-      ctx.beginPath();
-      ctx.arc(
-        b.x + b.radius * 0.38,
-        b.y + b.radius * 0.3,
-        b.radius * 0.1,
-        0,
-        Math.PI * 2
-      );
-      ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.8})`;
-      ctx.fill();
+      // Brillo secundario pequeño (skip on mobile for perf)
+      if (!isMobile) {
+        ctx.beginPath();
+        ctx.arc(
+          b.x + b.radius * 0.38,
+          b.y + b.radius * 0.3,
+          b.radius * 0.1,
+          0,
+          Math.PI * 2
+        );
+        ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.8})`;
+        ctx.fill();
+      }
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Gradiente de fondo noche marina
-      const bg = ctx.createLinearGradient(0, 0, 0, height);
-      bg.addColorStop(0,    "#00040a");
-      bg.addColorStop(0.35, "#020614");
-      bg.addColorStop(0.65, "#060E1E");
-      bg.addColorStop(0.88, "#001220");
-      bg.addColorStop(1,    "#000810");
-      ctx.fillStyle = bg;
+      // Use pre-computed gradient
+      ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, width, height);
 
       bubbles.forEach((b, i) => {
@@ -161,6 +176,7 @@ export default function BubbleRise() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      clearTimeout(resizeTimer);
       window.removeEventListener("resize", handleResize);
     };
   }, []);

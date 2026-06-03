@@ -154,8 +154,8 @@ input, textarea, select, .selectable-text {
 }
 
 @keyframes bioluminescence {
-  0%, 100% { opacity: 0.3; box-shadow: 0 0 5px currentColor; }
-  50% { opacity: 1; box-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
 }
 
 .animate-wave {
@@ -194,7 +194,15 @@ input, textarea, select, .selectable-text {
   pointer-events: none;
   z-index: 9999;
   opacity: 0.035;
+  contain: strict;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Hide noise overlay on mobile — imperceptible on small screens but costs compositing */
+@media (max-width: 767px) {
+  .noise-overlay {
+    display: none;
+  }
 }
 
 /* Texturas de papel/velvet sutil */
@@ -211,6 +219,7 @@ input, textarea, select, .selectable-text {
   inset: 0;
   pointer-events: none;
   z-index: 9998;
+  contain: strict;
   background: radial-gradient(ellipse at center, transparent 50%, rgba(2, 6, 20, 0.4) 100%);
 }
 
@@ -269,8 +278,8 @@ input, textarea, select, .selectable-text {
 }
 
 @keyframes silverTwinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.9); filter: blur(0px); }
-  50% { opacity: 0.9; transform: scale(1.1); filter: blur(1px); }
+  0%, 100% { opacity: 0.2; transform: scale(0.9); }
+  50% { opacity: 0.9; transform: scale(1.1); }
 }
 
 @keyframes starBurst {
@@ -431,7 +440,6 @@ input, textarea, select, .selectable-text {
 
 @keyframes bubbleShimmer {
   0%, 100% {
-    box-shadow: inset -2px -2px 6px rgba(255,255,255,0.1), inset 2px 2px 6px rgba(255,255,255,0.05), 0 0 8px rgba(255,255,255,0.2);
     opacity: 0;
     transform: scale(0.5);
   }
@@ -440,7 +448,6 @@ input, textarea, select, .selectable-text {
     transform: scale(1);
   }
   50% {
-    box-shadow: inset -3px -3px 10px rgba(255,255,255,0.2), inset 3px 3px 10px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.4);
     opacity: 0.6;
     transform: scale(0.95);
   }
@@ -455,8 +462,8 @@ input, textarea, select, .selectable-text {
 }
 
 @keyframes softGlow {
-  0%, 100% { opacity: 0.3; filter: blur(2px); }
-  50% { opacity: 0.6; filter: blur(4px); }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
 }
 
 @keyframes gentlePulse {
@@ -532,4 +539,65 @@ input, textarea, select, .selectable-text {
 .sparkle-glow {
   background: radial-gradient(circle, var(--bg-c1, transparent) 0%, var(--bg-c2, transparent) 70%, transparent 100%);
   box-shadow: var(--bubble-shadow, none);
+}
+
+/* ─── Stacking Cards – Mobile-first responsive sizing ───────── */
+
+/*
+ * The card content wrapper is sized to fit within the *dynamic*
+ * viewport height minus accumulated sticky offset (~80px reserve).
+ */
+.stacking-card-content {
+  min-height: 0;
+  max-height: calc(100dvh - 80px);
+  box-sizing: border-box;
+}
+
+/*
+ * Card visual: mobile-first.
+ * Uses width-based sizing with max-height to prevent overflow.
+ * aspect-ratio: 3/4 keeps it proportional.
+ */
+.stacking-card-visual {
+  width: min(300px, 84vw);
+  aspect-ratio: 3 / 4;
+  max-height: calc(100dvh - 100px);
+}
+
+.stacking-card-numeral {
+  font-size: clamp(100px, 26vw, 140px);
+}
+
+/* ── Tablet & up (≥ 640px) ── */
+@media (min-width: 640px) {
+  .stacking-card-visual {
+    width: min(360px, 70vw);
+    max-height: calc(100dvh - 100px);
+  }
+
+  .stacking-card-numeral {
+    font-size: clamp(140px, 20vw, 200px);
+  }
+}
+
+/* ── Desktop (≥ 1024px) ── */
+@media (min-width: 1024px) {
+  .stacking-card-visual {
+    width: min(400px, 40vw);
+    max-height: calc(100dvh - 120px);
+  }
+
+  .stacking-card-numeral {
+    font-size: clamp(160px, 14vw, 220px);
+  }
+}
+
+/* Fallback for browsers that don't support dvh */
+@supports not (height: 1dvh) {
+  .stacking-card-content {
+    max-height: calc(100vh - 80px);
+  }
+  .stacking-card-visual {
+    max-height: calc(100vh - 100px);
+  }
 }

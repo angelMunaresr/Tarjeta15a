@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 interface Bubble {
   x: number;
@@ -17,6 +17,7 @@ export default function RippleEffect() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const bubblesRef = useRef<Bubble[]>([]);
   const animationRef = useRef<number>(0);
+  const isRunningRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -28,38 +29,17 @@ export default function RippleEffect() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
+    // Debounced resize handler
+    let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }, 200);
     };
 
     window.addEventListener("resize", handleResize);
-
-    const handlePointerDown = (e: PointerEvent) => {
-      const bubbleCount = 6 + Math.floor(Math.random() * 4);
-
-      for (let i = 0; i < bubbleCount; i++) {
-        const offsetX = (Math.random() - 0.5) * 60;
-        const offsetY = (Math.random() - 0.5) * 40;
-
-        bubblesRef.current.push({
-          x: e.clientX + offsetX,
-          y: e.clientY + offsetY,
-          radius: 4 + Math.random() * 12,
-          opacity: 0.6 + Math.random() * 0.4,
-          speedX: (Math.random() - 0.5) * 1.5,
-          speedY: -1.5 - Math.random() * 2,
-          wobble: Math.random() * Math.PI * 2,
-          wobbleSpeed: 0.03 + Math.random() * 0.04,
-        });
-      }
-
-      if (bubblesRef.current.length > 50) {
-        bubblesRef.current = bubblesRef.current.slice(-50);
-      }
-    };
-
-    window.addEventListener("pointerdown", handlePointerDown);
 
     const drawBubble = (bubble: Bubble) => {
       const { x, y, radius, opacity, wobble } = bubble;
@@ -106,6 +86,13 @@ export default function RippleEffect() {
     };
 
     const animate = () => {
+      // If no bubbles left, stop the loop and clear canvas once
+      if (bubblesRef.current.length === 0) {
+        ctx.clearRect(0, 0, width, height);
+        isRunningRef.current = false;
+        return;
+      }
+
       ctx.clearRect(0, 0, width, height);
 
       bubblesRef.current = bubblesRef.current.filter((bubble) => {
@@ -127,10 +114,46 @@ export default function RippleEffect() {
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    // Start the animation loop only if not already running
+    const startLoop = () => {
+      if (!isRunningRef.current) {
+        isRunningRef.current = true;
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    const handlePointerDown = (e: PointerEvent) => {
+      const bubbleCount = 6 + Math.floor(Math.random() * 4);
+
+      for (let i = 0; i < bubbleCount; i++) {
+        const offsetX = (Math.random() - 0.5) * 60;
+        const offsetY = (Math.random() - 0.5) * 40;
+
+        bubblesRef.current.push({
+          x: e.clientX + offsetX,
+          y: e.clientY + offsetY,
+          radius: 4 + Math.random() * 12,
+          opacity: 0.6 + Math.random() * 0.4,
+          speedX: (Math.random() - 0.5) * 1.5,
+          speedY: -1.5 - Math.random() * 2,
+          wobble: Math.random() * Math.PI * 2,
+          wobbleSpeed: 0.03 + Math.random() * 0.04,
+        });
+      }
+
+      if (bubblesRef.current.length > 50) {
+        bubblesRef.current = bubblesRef.current.slice(-50);
+      }
+
+      // Wake up the animation loop
+      startLoop();
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown);
 
     return () => {
       cancelAnimationFrame(animationRef.current);
+      clearTimeout(resizeTimer);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("pointerdown", handlePointerDown);
     };

@@ -85,6 +85,16 @@ const GLOW_DOTS: Particle[] = [
   { pos: "top-[80%] right-[28%]", size: "w-1 h-1", delay: "1.8s", opacity: "bg-white/12" },
 ];
 
+/*
+ * On mobile, render fewer decorative elements to reduce compositing cost.
+ * Only the first N items from each group are shown.
+ */
+const MOBILE_BIG_BUBBLE_COUNT = 6;
+const MOBILE_SHIMMER_COUNT = 4;
+const MOBILE_SPARKLE_COUNT = 5;
+const MOBILE_FOAM_COUNT = 6;
+const MOBILE_LINE_COUNT = 3;
+
 export default function HeroSection() {
   const handleScrollDown = () => {
     const nextSection = document.getElementById("transition-section");
@@ -117,20 +127,35 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-navy-abyss/40 via-transparent to-navy-abyss/40 pointer-events-none" />
       <div className="absolute inset-0 z-[1] bg-gradient-to-t from-navy-abyss/60 via-transparent to-navy-abyss/40 pointer-events-none" />
 
-      {/* Burbujas grandes - azul brillante con brillo */}
+      {/* Burbujas grandes - azul brillante con brillo — NO backdrop-blur on mobile */}
       {BIG_BUBBLES.map((b, i) => (
         <div
           key={`big-${i}`}
-          className={`absolute rounded-full animate-bubble-float z-[3] backdrop-blur-sm bubble-glass ${b.size} ${b.pos}`}
+          className={`absolute rounded-full animate-bubble-float z-[3] bubble-glass ${b.size} ${b.pos} hidden md:block`}
+          style={{ animationDelay: b.delay, ...b.cssVars } as React.CSSProperties}
+        />
+      ))}
+      {/* Mobile: fewer big bubbles, no backdrop-blur */}
+      {BIG_BUBBLES.slice(0, MOBILE_BIG_BUBBLE_COUNT).map((b, i) => (
+        <div
+          key={`big-m-${i}`}
+          className={`absolute rounded-full animate-bubble-float z-[3] bubble-glass ${b.size} ${b.pos} md:hidden`}
           style={{ animationDelay: b.delay, ...b.cssVars } as React.CSSProperties}
         />
       ))}
 
-      {/* Burbujas pequenas con shimmer - azul y plateado brillante */}
+      {/* Burbujas pequenas con shimmer — NO backdrop-blur */}
       {SHIMMER_BUBBLES.map((b, i) => (
         <div
           key={`shim-${i}`}
-          className={`absolute rounded-full animate-bubble-shimmer z-[3] backdrop-blur-sm bubble-glass ${b.size} ${b.pos}`}
+          className={`absolute rounded-full animate-bubble-shimmer z-[3] bubble-glass ${b.size} ${b.pos} hidden md:block`}
+          style={{ animationDelay: b.delay, ...b.cssVars } as React.CSSProperties}
+        />
+      ))}
+      {SHIMMER_BUBBLES.slice(0, MOBILE_SHIMMER_COUNT).map((b, i) => (
+        <div
+          key={`shim-m-${i}`}
+          className={`absolute rounded-full animate-bubble-shimmer z-[3] bubble-glass ${b.size} ${b.pos} md:hidden`}
           style={{ animationDelay: b.delay, ...b.cssVars } as React.CSSProperties}
         />
       ))}
@@ -139,27 +164,44 @@ export default function HeroSection() {
       {SPARKLES.map((b, i) => (
         <div
           key={`spark-${i}`}
-          className={`absolute rounded-full animate-sparkle-float z-[3] sparkle-glow ${b.size} ${b.pos}`}
+          className={`absolute rounded-full animate-sparkle-float z-[3] sparkle-glow ${b.size} ${b.pos} hidden md:block`}
+          style={{ animationDelay: b.delay, ...b.cssVars } as React.CSSProperties}
+        />
+      ))}
+      {SPARKLES.slice(0, MOBILE_SPARKLE_COUNT).map((b, i) => (
+        <div
+          key={`spark-m-${i}`}
+          className={`absolute rounded-full animate-sparkle-float z-[3] sparkle-glow ${b.size} ${b.pos} md:hidden`}
           style={{ animationDelay: b.delay, ...b.cssVars } as React.CSSProperties}
         />
       ))}
 
       {/* Resplandores plateados muy suaves */}
-      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-white/3 rounded-full blur-[100px] animate-moon-glow-soft pointer-events-none z-[2]" />
-      <div className="absolute top-1/2 right-1/4 w-[250px] h-[250px] bg-white/2 rounded-full blur-[80px] animate-moon-glow-soft pointer-events-none z-[2]" style={{ animationDelay: "1s" }} />
-      <div className="absolute bottom-1/3 left-1/3 w-[200px] h-[200px] bg-white/1.5 rounded-full blur-[60px] animate-moon-glow-soft pointer-events-none z-[2]" style={{ animationDelay: "2s" }} />
+      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-white/3 rounded-full blur-[100px] animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" />
+      <div className="absolute top-1/2 right-1/4 w-[250px] h-[250px] bg-white/2 rounded-full blur-[80px] animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" style={{ animationDelay: "1s" }} />
+      <div className="absolute bottom-1/3 left-1/3 w-[200px] h-[200px] bg-white/1.5 rounded-full blur-[60px] animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" style={{ animationDelay: "2s" }} />
+      {/* Mobile: single smaller glow */}
+      <div className="absolute top-1/3 left-1/4 w-[200px] h-[200px] bg-white/3 rounded-full blur-[60px] animate-moon-glow-soft pointer-events-none z-[2] md:hidden" />
 
       {/* Micro-partículas de espuma flotando */}
       {FOAM_PARTICLES.map((p, i) => (
         <div
           key={`foam-${i}`}
-          className={`absolute rounded-full animate-sparkle-float z-[2] ${p.size} ${p.pos} ${p.opacity}`}
+          className={`absolute rounded-full animate-sparkle-float z-[2] ${p.size} ${p.pos} ${p.opacity} hidden md:block`}
+          style={{ animationDelay: p.delay }}
+        />
+      ))}
+      {FOAM_PARTICLES.slice(0, MOBILE_FOAM_COUNT).map((p, i) => (
+        <div
+          key={`foam-m-${i}`}
+          className={`absolute rounded-full animate-sparkle-float z-[2] ${p.size} ${p.pos} ${p.opacity} md:hidden`}
           style={{ animationDelay: p.delay }}
         />
       ))}
 
       {/* Brillo central detrás del nombre */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-gradient-to-br from-white/[0.06] via-transparent to-transparent rounded-full blur-[100px] pointer-events-none animate-soft-glow z-[2]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-gradient-to-br from-white/[0.06] via-transparent to-transparent rounded-full blur-[100px] pointer-events-none animate-soft-glow z-[2] hidden md:block" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-gradient-to-br from-white/[0.06] via-transparent to-transparent rounded-full blur-[60px] pointer-events-none animate-soft-glow z-[2] md:hidden" />
 
       {/* Marco decorativo sutil */}
       <div className="absolute inset-5 border border-white/5 pointer-events-none rounded-sm z-[2]">
@@ -176,7 +218,14 @@ export default function HeroSection() {
       {THIN_LINES.map((l, i) => (
         <div
           key={`line-${i}`}
-          className={`absolute h-px animate-sparkle-float z-[2] ${l.pos} ${l.width} ${l.gradient} ${l.rotation}`}
+          className={`absolute h-px animate-sparkle-float z-[2] ${l.pos} ${l.width} ${l.gradient} ${l.rotation} hidden md:block`}
+          style={{ animationDelay: l.delay }}
+        />
+      ))}
+      {THIN_LINES.slice(0, MOBILE_LINE_COUNT).map((l, i) => (
+        <div
+          key={`line-m-${i}`}
+          className={`absolute h-px animate-sparkle-float z-[2] ${l.pos} ${l.width} ${l.gradient} ${l.rotation} md:hidden`}
           style={{ animationDelay: l.delay }}
         />
       ))}
