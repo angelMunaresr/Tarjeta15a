@@ -25,13 +25,20 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
     let stars: Star[] = [];
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
     const isMobile = width < 768;
     const starCount = isMobile ? 70 : 180;
+    /*
+     * On mobile, render every other frame (~30fps). Imperceptible for
+     * stars/reflections; halves canvas CPU on phones.
+     */
+    const frameSkip = isMobile ? 2 : 1;
+    let frameCount = 0;
+    let isVisible = true;
 
     const createStar = (): Star => ({
       x: Math.random() * width,
@@ -47,14 +54,12 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
       stars = Array.from({ length: starCount }, createStar);
     };
 
-    // Debounced resize handler
     let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
-        // Recreate pre-computed gradients after resize
         baseGrad = createBaseGradient();
         init();
       }, 200);
@@ -63,7 +68,6 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
     window.addEventListener("resize", handleResize);
     init();
 
-    // Pre-compute static gradients (created once, reused every frame)
     let baseGrad: CanvasGradient;
     const createBaseGradient = () => {
       const g = ctx.createLinearGradient(0, 0, 0, height);
@@ -123,7 +127,6 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
       ctx.fillStyle = reflectionGradient;
       ctx.fillRect(0, reflectionY, width, height - reflectionY);
 
-      // Use larger step on mobile to reduce sin() calculations
       const step = isMobile ? 10 : 5;
       ctx.strokeStyle = "rgba(245, 235, 210, 0.03)";
       ctx.lineWidth = 1;
@@ -140,50 +143,82 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
     };
 
     const animate = () => {
-      timeRef.current += 16;
+      // Off-screen: do not draw and do not schedule the next frame.
+      if (!isVisible) {
+        animationFrameId = null;
+        return;
+      }
 
-      // Use pre-computed gradient instead of creating new one every frame
-      ctx.fillStyle = baseGrad;
-      ctx.fillRect(0, 0, width, height);
+      frameCount++;
+      const drawThisFrame = frameSkip === 1 || frameCount % frameSkip === 0;
 
-      drawWaterReflection();
-      if (showMoon) drawMoon();
+      if (drawThisFrame) {
+        timeRef.current += 16;
 
-      stars.forEach((star) => {
-        star.phase += star.alphaSpeed;
-        const twinkle = Math.sin(star.phase * star.twinkleSpeed * 100) * 0.45;
-        const currentAlpha = Math.max(0.1, Math.min(1, star.alpha + twinkle));
+        ctx.fillStyle = baseGrad;
+        ctx.fillRect(0, 0, width, height);
 
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(248, 246, 240, ${currentAlpha})`;
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fill();
+        drawWaterReflection();
+        if (showMoon) drawMoon();
 
-        if (star.size > 1.4 && currentAlpha > 0.6) {
-          ctx.strokeStyle = `rgba(248, 246, 240, ${currentAlpha * 0.35})`;
-          ctx.lineWidth = 0.3;
+        stars.forEach((star) => {
+          star.phase += star.alphaSpeed;
+          const twinkle = Math.sin(star.phase * star.twinkleSpeed * 100) * 0.45;
+          const currentAlpha = Math.max(0.1, Math.min(1, star.alpha + twinkle));
+
           ctx.beginPath();
-          ctx.moveTo(star.x - star.size * 2.5, star.y);
-          ctx.lineTo(star.x + star.size * 2.5, star.y);
-          ctx.moveTo(star.x, star.y - star.size * 2.5);
-          ctx.lineTo(star.x, star.y + star.size * 2.5);
-          ctx.stroke();
-        }
-      });
+          ctx.fillStyle = `rgba(248, 246, 240, ${currentAlpha})`;
+          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (star.size > 1.4 && currentAlpha > 0.6) {
+            ctx.strokeStyle = `rgba(248, 246, 240, ${currentAlpha * 0.35})`;
+            ctx.lineWidth = 0.3;
+            ctx.beginPath();
+            ctx.moveTo(star.x - star.size * 2.5, star.y);
+            ctx.lineTo(star.x + star.size * 2.5, star.y);
+            ctx.moveTo(star.x, star.y - star.size * 2.5);
+            ctx.lineTo(star.x, star.y + star.size * 2.5);
+            ctx.stroke();
+          }
+        });
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
+    /*
+     * Pause the rAF while the canvas is off-screen. Re-entry restarts
+     * the loop with a fresh frame counter so frame-skip stays in sync.
+     */
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const wasVisible = isVisible;
+          isVisible = entry.isIntersecting;
+          if (isVisible && !wasVisible) {
+            frameCount = 0;
+            animationFrameId = requestAnimationFrame(animate);
+          } else if (!isVisible && animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
+    animationFrameId = requestAnimationFrame(animate);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
       clearTimeout(resizeTimer);
       window.removeEventListener("resize", handleResize);
+      observer.disconnect();
     };
   }, []);
 
-  // Don't render the canvas element at all when excluded
   if (excludeSection1) return null;
 
   return (

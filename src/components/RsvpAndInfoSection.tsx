@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, Send, AlertCircle, Shirt, Gift, Copy, Check, Info, MessageCircle, Shell, Star, Waves } from "lucide-react";
-import confetti from "canvas-confetti";
 
 export default function RsvpAndInfoSection() {
   const [name, setName] = useState("");
@@ -24,7 +23,8 @@ export default function RsvpAndInfoSection() {
     titular: "Marina Rodríguez",
   };
 
-  const triggerConfetti = () => {
+  const triggerConfetti = async () => {
+    const { default: confetti } = await import("canvas-confetti");
     const colors = ["#D4A373", "#F3E5D8", "#00F5FF", "#0ea5e9", "#FFFFFF"];
     const end = Date.now() + 1000;
     (function frame() {
@@ -93,9 +93,9 @@ export default function RsvpAndInfoSection() {
         <span className="font-cinzel text-xs text-rose-gold font-bold">3</span>
       </div>
 
-      {/* Luces radiales del fondo */}
-      <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-sea-glow/[0.04] rounded-full blur-[150px] pointer-events-none animate-golden-shimmer" />
-      <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-rose-gold/[0.05] rounded-full blur-[130px] pointer-events-none" />
+      {/* Luces radiales del fondo (gradientes estáticos = 0 filter:blur) */}
+      <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full pointer-events-none animate-golden-shimmer" style={{ background: "radial-gradient(circle, rgba(0,245,255,0.04) 0%, transparent 70%)" }} />
+      <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(212,163,115,0.05) 0%, transparent 70%)" }} />
 
       {/* Marco decorativo */}
       <div className="absolute inset-8 border border-rose-gold/8 pointer-events-none rounded-sm" />

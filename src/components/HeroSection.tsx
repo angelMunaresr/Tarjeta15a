@@ -114,7 +114,7 @@ export default function HeroSection() {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/img/quinceañera.webp'), url('/img/quinceañera.jpg')",
+          backgroundImage: "url('/img/quinceañera.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           opacity: 0.65,
@@ -176,12 +176,12 @@ export default function HeroSection() {
         />
       ))}
 
-      {/* Resplandores plateados muy suaves */}
-      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-white/3 rounded-full blur-[100px] animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" />
-      <div className="absolute top-1/2 right-1/4 w-[250px] h-[250px] bg-white/2 rounded-full blur-[80px] animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" style={{ animationDelay: "1s" }} />
-      <div className="absolute bottom-1/3 left-1/3 w-[200px] h-[200px] bg-white/1.5 rounded-full blur-[60px] animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" style={{ animationDelay: "2s" }} />
+      {/* Resplandores plateados muy suaves (radial-gradient estático = sin filter:blur, 0 costo de compositing) */}
+      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)" }} />
+      <div className="absolute top-1/2 right-1/4 w-[250px] h-[250px] rounded-full animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" style={{ animationDelay: "1s", background: "radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)" }} />
+      <div className="absolute bottom-1/3 left-1/3 w-[200px] h-[200px] rounded-full animate-moon-glow-soft pointer-events-none z-[2] hidden md:block" style={{ animationDelay: "2s", background: "radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)" }} />
       {/* Mobile: single smaller glow */}
-      <div className="absolute top-1/3 left-1/4 w-[200px] h-[200px] bg-white/3 rounded-full blur-[60px] animate-moon-glow-soft pointer-events-none z-[2] md:hidden" />
+      <div className="absolute top-1/3 left-1/4 w-[200px] h-[200px] rounded-full animate-moon-glow-soft pointer-events-none z-[2] md:hidden" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)" }} />
 
       {/* Micro-partículas de espuma flotando */}
       {FOAM_PARTICLES.map((p, i) => (
@@ -199,9 +199,9 @@ export default function HeroSection() {
         />
       ))}
 
-      {/* Brillo central detrás del nombre */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-gradient-to-br from-white/[0.06] via-transparent to-transparent rounded-full blur-[100px] pointer-events-none animate-soft-glow z-[2] hidden md:block" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-gradient-to-br from-white/[0.06] via-transparent to-transparent rounded-full blur-[60px] pointer-events-none animate-soft-glow z-[2] md:hidden" />
+      {/* Brillo central detrás del nombre (gradiente estático = 0 filter:blur) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] rounded-full pointer-events-none animate-soft-glow z-[2] hidden md:block" style={{ background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.10) 0%, transparent 65%)" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] rounded-full pointer-events-none animate-soft-glow z-[2] md:hidden" style={{ background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.10) 0%, transparent 65%)" }} />
 
       {/* Marco decorativo sutil */}
       <div className="absolute inset-5 border border-white/5 pointer-events-none rounded-sm z-[2]">
@@ -259,11 +259,11 @@ export default function HeroSection() {
           transition={{ duration: 2, ease: "easeOut", delay: 0.1 }}
           className="relative flex flex-col items-center"
         >
-          {/* Glow plateado más pronunciado detrás del nombre */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-rose-gold-light/8 to-transparent rounded-full blur-[120px] scale-130 -translate-y-3 animate-soft-glow" />
+          {/* Glow plateado más pronunciado detrás del nombre (gradiente estático = 0 filter:blur) */}
+          <div className="absolute inset-0 rounded-full scale-130 -translate-y-3 animate-soft-glow" style={{ background: "radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.20) 0%, rgba(243,229,216,0.08) 40%, transparent 70%)" }} />
 
           {/* Segunda capa de glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-sea-glow/10 via-transparent to-transparent rounded-full blur-[80px] scale-110 -translate-y-1 animate-moon-glow-soft" />
+          <div className="absolute inset-0 rounded-full scale-110 -translate-y-1 animate-moon-glow-soft" style={{ background: "radial-gradient(ellipse at 30% 30%, rgba(0,245,255,0.10) 0%, transparent 65%)" }} />
 
           {/* Nombre caligráfico gigante en rose-gold con glow */}
           <h1 className="font-pinyon text-7xl md:text-9xl text-rose-gold-light tracking-wide relative" style={{ textShadow: "0 0 40px rgba(243,229,216,0.5), 0 0 80px rgba(243,229,216,0.25), 0 0 120px rgba(212,163,115,0.15)" }}>

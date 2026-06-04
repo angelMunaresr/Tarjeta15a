@@ -13,36 +13,6 @@ interface TimeLeft {
 
 export default function DetailsSection() {
   const targetDate = "2026-11-14T21:00:00";
-  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const difference = +new Date(targetDate) - +new Date();
-      let timeLeftTemp: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-
-      if (difference > 0) {
-        timeLeftTemp = {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-        };
-      }
-      return timeLeftTemp;
-    };
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Necesario para evitar hydration mismatch: la fecha objetivo se compara con la hora actual del cliente, que solo está disponible después del mount.
-    setMounted(true);
-    setTimeLeft(calculateTimeLeft());
-
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
   const mapQuery = "Milennium+Eventos+Mar+del+Plata";
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
@@ -56,16 +26,16 @@ export default function DetailsSection() {
         <span className="font-cinzel text-xs text-rose-gold font-bold">2</span>
       </div>
 
-      {/* Luces radiales del fondo */}
-      <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-sea-glow/[0.03] rounded-full blur-[150px] pointer-events-none animate-golden-shimmer" />
-      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-rose-gold/[0.04] rounded-full blur-[150px] pointer-events-none" />
+      {/* Luces radiales del fondo (gradientes estáticos = 0 filter:blur) */}
+      <div className="absolute top-1/4 left-0 w-[400px] h-[400px] rounded-full pointer-events-none animate-golden-shimmer" style={{ background: "radial-gradient(circle, rgba(0,245,255,0.03) 0%, transparent 70%)" }} />
+      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(212,163,115,0.04) 0%, transparent 70%)" }} />
 
       {/* Luna grande decorativa con halo plateado - esquina superior derecha */}
       <div className="absolute top-[5%] right-[6%] z-[1] pointer-events-none" aria-hidden="true">
         <div className="relative">
-          {/* Halo exterior plateado */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[500px] md:h-[500px] bg-silver-bright/[0.04] rounded-full blur-[100px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[320px] md:h-[320px] bg-silver-shine/[0.06] rounded-full blur-[60px]" />
+          {/* Halo exterior plateado (gradientes estáticos = 0 filter:blur) */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(232,232,240,0.04) 0%, transparent 70%)" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[320px] md:h-[320px] rounded-full" style={{ background: "radial-gradient(circle, rgba(250,250,255,0.06) 0%, transparent 70%)" }} />
 
           {/* Luna propiamente dicha */}
           <motion.div
@@ -255,51 +225,7 @@ export default function DetailsSection() {
               >
                 Tiempo para que suba la marea
               </p>
-              {mounted && timeLeft ? (
-                <div className="grid grid-cols-4 gap-2">
-                  {[
-                    { label: "Días", value: timeLeft.days },
-                    { label: "Hs", value: timeLeft.hours },
-                    { label: "Min", value: timeLeft.minutes },
-                    { label: "Seg", value: timeLeft.seconds },
-                  ].map((item, idx) => (
-                    <div key={idx} className="text-center relative">
-                      {/* Diamante plateado sobre cada número */}
-                      <motion.div
-                        animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
-                        transition={{ duration: 2.5, repeat: Infinity, delay: idx * 0.4 }}
-                        className="absolute top-[-6px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rotate-45 bg-silver-shine pointer-events-none"
-                        style={{ boxShadow: "0 0 6px rgba(250,250,255,0.7)" }}
-                      />
-                      <div
-                        className="font-cinzel text-2xl md:text-3xl font-bold tracking-tight silver-shimmer-text"
-                        style={{ textShadow: "0 0 10px rgba(232,232,240,0.5), 0 0 20px rgba(232,232,240,0.25), 0 2px 4px rgba(0,0,0,0.4)" }}
-                      >
-                        {String(item.value).padStart(2, "0")}
-                      </div>
-                      <div className="text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-slate-400 mt-1 font-medium">
-                        {item.label}
-                      </div>
-                      {idx < 3 && (
-                        <div className="absolute right-[-4px] top-1/2 -translate-y-1/2 w-px h-6 bg-rose-gold/15" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-4 gap-2 opacity-50">
-                  {["Días", "Hs", "Min", "Seg"].map((label, idx) => (
-                    <div key={idx} className="text-center">
-                      <div className="font-cinzel text-2xl md:text-3xl font-bold text-rose-gold animate-pulse">
-                        --
-                      </div>
-                      <div className="text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-slate-400 mt-1 font-medium">
-                        {label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <CountdownGrid targetDate={targetDate} />
             </div>
 
             {/* Adornos en esquinas de la tarjeta */}
@@ -385,5 +311,87 @@ export default function DetailsSection() {
       <div className="absolute bottom-[8%] right-[35%] w-2 h-2 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "2s", background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.6) 0%, rgba(192,192,200,0.25) 50%, rgba(80, 80, 120, 0.05) 100%)", boxShadow: "inset -1px -1px 2px rgba(255,255,255,0.28), inset 1px 1px 1px rgba(255,255,255,0.14), 0 0 6px rgba(232,232,240,0.28)" }} />
       <div className="absolute bottom-[20%] left-[20%] w-1.5 h-1.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "1s", background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.5) 0%, rgba(180,200,230,0.2) 50%, transparent 100%)", boxShadow: "0 0 5px rgba(232,232,240,0.3)" }} />
     </section>
+  );
+}
+
+/*
+ * CountdownGrid se monta en su propio sub-árbol: el setInterval solo
+ * rerenderiza este componente (4 dígitos) y no el resto de la sección
+ * (motion.divs, glass panels, gradientes decorativos).
+ */
+function CountdownGrid({ targetDate }: { targetDate: string }) {
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
+
+  useEffect(() => {
+    const calculate = () => {
+      const difference = +new Date(targetDate) - +new Date();
+      if (difference <= 0) {
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      }
+      return {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    };
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Necesario para evitar hydration mismatch: la fecha objetivo se compara con la hora actual del cliente, que solo está disponible después del mount.
+    setTimeLeft(calculate());
+    const timer = setInterval(() => {
+      setTimeLeft(calculate());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [targetDate]);
+
+  if (!timeLeft) {
+    return (
+      <div className="grid grid-cols-4 gap-2 opacity-50">
+        {["Días", "Hs", "Min", "Seg"].map((label, idx) => (
+          <div key={idx} className="text-center">
+            <div className="font-cinzel text-2xl md:text-3xl font-bold text-rose-gold animate-pulse">
+              --
+            </div>
+            <div className="text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-slate-400 mt-1 font-medium">
+              {label}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  const items = [
+    { label: "Días", value: timeLeft.days },
+    { label: "Hs", value: timeLeft.hours },
+    { label: "Min", value: timeLeft.minutes },
+    { label: "Seg", value: timeLeft.seconds },
+  ];
+
+  return (
+    <div className="grid grid-cols-4 gap-2">
+      {items.map((item, idx) => (
+        <div key={item.label} className="text-center relative">
+          <motion.div
+            animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 2.5, repeat: Infinity, delay: idx * 0.4 }}
+            className="absolute top-[-6px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rotate-45 bg-silver-shine pointer-events-none"
+            style={{ boxShadow: "0 0 6px rgba(250,250,255,0.7)" }}
+          />
+          <div
+            className="font-cinzel text-2xl md:text-3xl font-bold tracking-tight silver-shimmer-text"
+            style={{ textShadow: "0 0 10px rgba(232,232,240,0.5), 0 0 20px rgba(232,232,240,0.25), 0 2px 4px rgba(0,0,0,0.4)" }}
+          >
+            {String(item.value).padStart(2, "0")}
+          </div>
+          <div className="text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-slate-400 mt-1 font-medium">
+            {item.label}
+          </div>
+          {idx < 3 && (
+            <div className="absolute right-[-4px] top-1/2 -translate-y-1/2 w-px h-6 bg-rose-gold/15" />
+          )}
+        </div>
+      ))}
+    </div>
   );
 }

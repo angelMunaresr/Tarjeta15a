@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 
 interface Bubble {
   x: number;
@@ -16,8 +16,15 @@ interface Bubble {
 export default function RippleEffect() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const bubblesRef = useRef<Bubble[]>([]);
-  const animationRef = useRef<number>(0);
+  const animationRef = useRef<number | null>(null);
   const isRunningRef = useRef(false);
+  const isVisibleRef = useRef(true);
+  /*
+   * Frame skipping for mobile: render every other frame (~30fps).
+   * Halves CPU on the canvas; imperceptible for short-lived bubbles.
+   */
+  const frameSkipRef = useRef(1);
+  const frameCountRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -29,13 +36,15 @@ export default function RippleEffect() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Debounced resize handler
+    frameSkipRef.current = width < 768 ? 2 : 1;
+
     let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
+        frameSkipRef.current = width < 768 ? 2 : 1;
       }, 200);
     };
 
@@ -86,14 +95,22 @@ export default function RippleEffect() {
     };
 
     const animate = () => {
-      // If no bubbles left, stop the loop and clear canvas once
-      if (bubblesRef.current.length === 0) {
-        ctx.clearRect(0, 0, width, height);
+      if (!isVisibleRef.current) {
         isRunningRef.current = false;
+        animationRef.current = null;
         return;
       }
 
-      ctx.clearRect(0, 0, width, height);
+      if (bubblesRef.current.length === 0) {
+        ctx.clearRect(0, 0, width, height);
+        isRunningRef.current = false;
+        animationRef.current = null;
+        return;
+      }
+
+      frameCountRef.current++;
+      const skip = frameSkipRef.current;
+      const shouldDraw = skip === 1 || frameCountRef.current % skip === 0;
 
       bubblesRef.current = bubblesRef.current.filter((bubble) => {
         bubble.wobble += bubble.wobbleSpeed;
@@ -107,25 +124,25 @@ export default function RippleEffect() {
           return false;
         }
 
-        drawBubble(bubble);
+        if (shouldDraw) {
+          drawBubble(bubble);
+        }
         return true;
       });
 
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    // Start the animation loop only if not already running
     const startLoop = () => {
-      if (!isRunningRef.current) {
+      if (!isRunningRef.current && isVisibleRef.current) {
         isRunningRef.current = true;
+        frameCountRef.current = 0;
         animationRef.current = requestAnimationFrame(animate);
       }
     };
 
     const handleInteraction = (e: MouseEvent) => {
       const isMobile = window.innerWidth < 768;
-      
-      // En celular creamos muchas menos burbujas para no saturar
       const baseCount = isMobile ? 2 : 6;
       const randCount = isMobile ? 2 : 4;
       const bubbleCount = baseCount + Math.floor(Math.random() * randCount);
@@ -146,26 +163,41 @@ export default function RippleEffect() {
         });
       }
 
-      // Límite más estricto de burbujas en pantalla para móviles
       const maxBubbles = isMobile ? 12 : 50;
       if (bubblesRef.current.length > maxBubbles) {
         bubblesRef.current = bubblesRef.current.slice(-maxBubbles);
       }
 
-      // Wake up the animation loop
       startLoop();
     };
 
-    // Usar 'click' en lugar de 'pointerdown'. 
-    // pointerdown se dispara al iniciar un scroll en móvil, lo que genera burbujas indeseadas y lag.
-    // click solo se dispara al hacer un "tap" intencional (sin deslizar).
+    /*
+     * Pause the rAF while the canvas is off-screen. Re-entry wakes the
+     * loop on the next user click.
+     */
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          isVisibleRef.current = entry.isIntersecting;
+          if (!isVisibleRef.current && animationRef.current !== null) {
+            cancelAnimationFrame(animationRef.current);
+            animationRef.current = null;
+            isRunningRef.current = false;
+          }
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
     window.addEventListener("click", handleInteraction);
 
     return () => {
-      cancelAnimationFrame(animationRef.current);
+      if (animationRef.current !== null) cancelAnimationFrame(animationRef.current);
       clearTimeout(resizeTimer);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("click", handleInteraction);
+      observer.disconnect();
     };
   }, []);
 

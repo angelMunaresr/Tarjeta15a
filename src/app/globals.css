@@ -80,6 +80,19 @@ input, textarea, select, .selectable-text {
   box-shadow: 0 8px 32px 0 rgba(2, 6, 20, 0.5);
 }
 
+/*
+ * On mobile, lower the backdrop blur radius. The 16px blur is
+ * expensive on the GPU and barely distinguishable on small,
+ * high-density screens. 6px keeps the frosted feel at a fraction
+ * of the compositing cost.
+ */
+@media (max-width: 767px) {
+  .glass-panel {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
+
 .glass-panel-hover {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }

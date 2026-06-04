@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  compress: true,
+  experimental: {
+    optimizePackageImports: ["framer-motion", "lucide-react"],
+  },
+  images: {
+    formats: ["image/webp"],
+  },
 };
 
 export default nextConfig;
