@@ -61,13 +61,10 @@ export default function DetailsSection() {
         </div>
       </div>
 
-      {/* Estrellas reflejadas (mitad inferior) */}
+      {/* Estrellas reflejadas (mitad inferior) — reducidas de 6 a 3 en mobile */}
       <div className="absolute bottom-[20%] left-[10%] w-1 h-1 rounded-full bg-silver-shine/60 animate-silver-twinkle pointer-events-none" />
-      <div className="absolute bottom-[35%] left-[25%] w-1.5 h-1.5 rounded-full bg-silver-bright/50 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "1s" }} />
-      <div className="absolute bottom-[45%] right-[15%] w-1 h-1 rounded-full bg-silver-shine/70 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "2s" }} />
-      <div className="absolute bottom-[30%] right-[30%] w-1.5 h-1.5 rounded-full bg-silver-bright/40 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "0.5s" }} />
-      <div className="absolute bottom-[15%] left-[45%] w-1 h-1 rounded-full bg-silver-shine/60 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "1.5s" }} />
-      <div className="absolute bottom-[50%] right-[8%] w-1 h-1 rounded-full bg-silver-bright/50 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "2.5s" }} />
+      <div className="absolute bottom-[45%] right-[15%] w-1 h-1 rounded-full bg-silver-shine/70 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "1.5s" }} />
+      <div className="absolute bottom-[15%] left-[45%] w-1 h-1 rounded-full bg-silver-shine/60 animate-silver-twinkle pointer-events-none" style={{ animationDelay: "1.2s" }} />
 
       {/* Concha marina decorativa sutil - esquina superior izquierda */}
       <div className="absolute top-[15%] left-[5%] w-16 h-16 opacity-[0.06] pointer-events-none" aria-hidden="true">
@@ -92,10 +89,10 @@ export default function DetailsSection() {
 
       {/* Título de la Sección */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5 }}
         className="text-center mb-10 z-10"
       >
         {/* H2 con color naranja (rose-gold) */}
@@ -116,10 +113,10 @@ export default function DetailsSection() {
 
       {/* Tarjeta principal - Superficie del mar de noche */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         className="w-full max-w-md z-10"
       >
         <div className="relative">
@@ -239,10 +236,10 @@ export default function DetailsSection() {
 
       {/* Tarjeta secundaria - Costa (botones de mapa) */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, delay: 0.4 }}
+        transition={{ duration: 0.5, delay: 0.16 }}
         className="w-full max-w-md mt-8 z-10"
       >
         <div className="glass-panel rounded-2xl p-5 relative shadow-xl texture-velvet">
@@ -304,12 +301,7 @@ export default function DetailsSection() {
         </div>
       </motion.div>
 
-      {/* Burbujas que emergen del fondo - aumentado para reforzar tema */}
-      <div className="absolute bottom-[5%] left-[8%] w-3 h-3 rounded-full animate-bubble-rise pointer-events-none" style={{ background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.65) 0%, rgba(200,220,240,0.3) 50%, rgba(60, 90, 150, 0.08) 100%)", boxShadow: "inset -1px -1px 3px rgba(255,255,255,0.3), inset 1px 1px 2px rgba(255,255,255,0.15), 0 0 8px rgba(232,232,240,0.4)" }} />
-      <div className="absolute bottom-[10%] right-[12%] w-4 h-4 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "0.7s", background: "radial-gradient(circle at 30% 30%, rgba(150, 180, 220, 0.6) 0%, rgba(80, 120, 180, 0.28) 50%, rgba(40, 70, 130, 0.08) 100%)", boxShadow: "inset -1px -1px 3px rgba(150, 180, 220, 0.28), inset 1px 1px 2px rgba(255,255,255,0.14), 0 0 10px rgba(150, 180, 220, 0.3)" }} />
-      <div className="absolute bottom-[15%] left-[40%] w-2.5 h-2.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "1.4s", background: "radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7) 0%, rgba(210, 230, 255, 0.35) 50%, rgba(160, 190, 230, 0.1) 100%)", boxShadow: "inset -1px -1px 2px rgba(255,255,255,0.32), inset 1px 1px 1px rgba(255,255,255,0.16), 0 0 7px rgba(210, 230, 255, 0.32)" }} />
-      <div className="absolute bottom-[8%] right-[35%] w-2 h-2 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "2s", background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.6) 0%, rgba(192,192,200,0.25) 50%, rgba(80, 80, 120, 0.05) 100%)", boxShadow: "inset -1px -1px 2px rgba(255,255,255,0.28), inset 1px 1px 1px rgba(255,255,255,0.14), 0 0 6px rgba(232,232,240,0.28)" }} />
-      <div className="absolute bottom-[20%] left-[20%] w-1.5 h-1.5 rounded-full animate-bubble-rise pointer-events-none" style={{ animationDelay: "1s", background: "radial-gradient(circle at 30% 30%, rgba(232,232,240,0.5) 0%, rgba(180,200,230,0.2) 50%, transparent 100%)", boxShadow: "0 0 5px rgba(232,232,240,0.3)" }} />
+      {/* Burbujas que emergen del fondo — eliminadas en mobile (eran las más superfluas) */}
     </section>
   );
 }

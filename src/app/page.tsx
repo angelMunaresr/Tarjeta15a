@@ -1,4 +1,5 @@
 import BubbleBackground from "@/components/BubbleBackground";
+import LoadingScreen from "@/components/LoadingScreen";
 import RippleEffect from "@/components/RippleEffect";
 import HeroSection from "@/components/HeroSection";
 import DetailsSection from "@/components/DetailsSection";
@@ -8,24 +9,27 @@ import MusicPlayer from "@/components/MusicPlayer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden">
-      {/* Fondo de burbujas flotantes interactivas en canvas */}
-      <BubbleBackground excludeSection1={true} />
+    <>
+      <LoadingScreen />
+      <main className="relative min-h-screen w-full overflow-x-hidden">
+        {/* Fondo de burbujas flotantes interactivas en canvas */}
+        <BubbleBackground excludeSection1={true} />
 
-      {/* Efecto de ondas de agua al tocar */}
-      <RippleEffect />
+        {/* Efecto de ondas de agua al tocar */}
+        <RippleEffect />
 
-      {/* Reproductor de música de fondo flotante */}
-      <MusicPlayer />
+        {/* Reproductor de música de fondo flotante */}
+        <MusicPlayer />
 
-      {/* Secciones del Scroll */}
-      <HeroSection />
+        {/* Secciones del Scroll */}
+        <HeroSection />
 
-      <DetailsSection />
+        <DetailsSection />
 
-      <RsvpAndInfoSection />
+        <RsvpAndInfoSection />
 
-      <SectionFourStackingCards />
-    </main>
+        <SectionFourStackingCards />
+      </main>
+    </>
   );
 }

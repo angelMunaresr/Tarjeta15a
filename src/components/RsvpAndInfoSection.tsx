@@ -135,10 +135,10 @@ export default function RsvpAndInfoSection() {
 
       {/* Título de la Sección */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5 }}
         className="text-center mb-10 z-10 select-none max-w-lg"
       >
         <h2
@@ -159,10 +159,10 @@ export default function RsvpAndInfoSection() {
       <div className="w-full max-w-5xl z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-7 items-start">
         {/* COLUMNA IZQUIERDA: RSVP */}
         <motion.div
-          initial={{ opacity: 0, x: -25 }}
+          initial={{ opacity: 0, x: -10 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.08 }}
           className="glass-panel rounded-2xl p-6 md:p-7 shadow-2xl relative hover:border-rose-gold/25 transition-colors duration-300 glow-dramatic texture-velvet"
         >
           {/* Adornos en esquinas */}
@@ -363,10 +363,10 @@ export default function RsvpAndInfoSection() {
         <div className="flex flex-col gap-6">
           {/* Card: Dress Code */}
           <motion.div
-            initial={{ opacity: 0, x: 25 }}
+            initial={{ opacity: 0, x: 10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.16 }}
             className="glass-panel p-5 md:p-6 flex flex-col items-center text-center shadow-2xl hover:border-rose-gold/25 transition-all duration-300 relative group rounded-2xl texture-velvet glow-dramatic"
           >
             <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t border-l border-rose-gold/20" />
@@ -398,10 +398,10 @@ export default function RsvpAndInfoSection() {
 
           {/* Card: Mesa de Regalos */}
           <motion.div
-            initial={{ opacity: 0, x: 25 }}
+            initial={{ opacity: 0, x: 10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.24 }}
             className="glass-panel p-5 md:p-6 flex flex-col shadow-2xl hover:border-rose-gold/25 transition-all duration-300 relative group rounded-2xl texture-velvet glow-dramatic"
           >
             <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t border-l border-rose-gold/20" />

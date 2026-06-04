@@ -110,6 +110,15 @@ export default function HeroSection() {
         <span className="font-cinzel text-xs text-rose-gold font-bold">1</span>
       </div>
 
+      {/* Placeholder gradient: visible mientras se carga la imagen (evita el flash de fondo plano) */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 40%, #1a2742 0%, #0a1024 45%, #020614 100%)",
+        }}
+      />
+
       {/* Imagen de fondo de la quinceañera - con filtro de saturación */}
       <div
         className="absolute inset-0 z-0"

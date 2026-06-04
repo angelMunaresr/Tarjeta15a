@@ -31,7 +31,7 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
     let height = (canvas.height = window.innerHeight);
 
     const isMobile = width < 768;
-    const starCount = isMobile ? 70 : 180;
+    const starCount = isMobile ? 18 : 180;
     /*
      * On mobile, render every other frame (~30fps). Imperceptible for
      * stars/reflections; halves canvas CPU on phones.
@@ -81,9 +81,10 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
     baseGrad = createBaseGradient();
 
     const drawMoon = () => {
+      if (isMobile) return; // Moon is rendered in the hero; skip on mobile to save cost.
       const moonX = width * 0.82;
       const moonY = height * 0.1;
-      const moonRadius = isMobile ? 40 : 60;
+      const moonRadius = 60;
 
       const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, moonRadius * 4);
       moonGlow.addColorStop(0, "rgba(245, 235, 210, 0.15)");
@@ -119,6 +120,7 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
     };
 
     const drawWaterReflection = () => {
+      if (isMobile) return; // Water reflection is desktop-only — biggest single-frame cost in the loop.
       const reflectionY = height * 0.88;
       const reflectionGradient = ctx.createLinearGradient(0, reflectionY, 0, height);
       reflectionGradient.addColorStop(0, "rgba(245, 235, 210, 0.02)");
@@ -127,7 +129,7 @@ export default function BubbleBackground({ showMoon = true, excludeSection1 = fa
       ctx.fillStyle = reflectionGradient;
       ctx.fillRect(0, reflectionY, width, height - reflectionY);
 
-      const step = isMobile ? 10 : 5;
+      const step = 5;
       ctx.strokeStyle = "rgba(245, 235, 210, 0.03)";
       ctx.lineWidth = 1;
       for (let i = 0; i < 4; i++) {
